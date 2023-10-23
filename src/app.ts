@@ -13,4 +13,4 @@ app.use(express.json());
 app.use(handleApplicationErrors);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Servidor is up on: ${port}`));
+app.listen(port, () => console.log(`Server is up on port: ${port}`));
