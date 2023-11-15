@@ -9,4 +9,9 @@ const userSignUpSchema = Joi.object({
     url_imagem: Joi.string().required(),
 });
 
-export { userSignUpSchema }
+const userSignInSchema = Joi.object({
+    email: Joi.string().email().required(),
+    senha: Joi.string().required()
+})
+
+export { userSignUpSchema, userSignInSchema }

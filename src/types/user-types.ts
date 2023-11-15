@@ -9,3 +9,4 @@ export type Usuario = {
 };
 
 export type PayloadRegistroUsuario = Omit<Usuario, 'id'>;
+export type PayloadLoginUsuario = Omit<Usuario, 'id' | 'nome' | 'sobrenome' | 'funcao' | 'url_imagem'>;

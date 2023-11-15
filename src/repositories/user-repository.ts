@@ -1,8 +1,8 @@
 import pool from "../config/database.js"
 import { QueryResult } from "pg";
-import { PayloadRegistroUsuario } from "../types/user-types.js";
+import { PayloadRegistroUsuario, Usuario } from "../types/user-types.js";
 
-async function findUserByEmail(email: string): Promise<QueryResult> {
+async function findUserByEmail(email: string): Promise<QueryResult<Usuario>> {
     return pool.query(`
         SELECT * FROM usuario
         WHERE email=$1;         
