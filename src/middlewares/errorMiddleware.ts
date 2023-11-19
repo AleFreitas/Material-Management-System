@@ -14,6 +14,12 @@ export function handleApplicationErrors(err, req: Request, res: Response, next) 
         });
     }
 
+    if (err.name === "InvalidInputDataError") {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: err.message
+        })
+    }
+
     if (err.name === "UnauthorizedError") {
         return res.status(httpStatus.UNAUTHORIZED).send({
             message: err.message,

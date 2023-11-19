@@ -48,12 +48,20 @@ function invalidCredentialsError() {
     };
 }
 
+function invalidInputData(field, received, expected) {
+    return {
+        name: "InvalidInputDataError",
+        message: `field ${field} expected to be ${expected} but instead received ${received} `
+    }
+}
+
 export default {
     conflictError,
     duplicatedEmailError,
     unauthorizedError,
     notFoundError,
     invalidCredentialsError,
+    invalidInputData,
     notFoundAtQueryError,
     httpsQueryNotGiven
 };
