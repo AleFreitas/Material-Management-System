@@ -27,6 +27,13 @@ function notFoundError() {
     };
 }
 
+function noBodyError() {
+    return {
+        name: "NoBodyError",
+        message: "This request expects a body and didn't get one"
+    }
+}
+
 function notFoundAtQueryError(data: string,column: string){
     return {
         name: "NotFoundAtQueryError",
@@ -63,5 +70,6 @@ export default {
     invalidCredentialsError,
     invalidInputData,
     notFoundAtQueryError,
-    httpsQueryNotGiven
+    httpsQueryNotGiven,
+    noBodyError,
 };
