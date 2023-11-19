@@ -25,6 +25,25 @@ async function updateBook(newBookData, bookISBN: string) {
     await materialRepository.updateBook(bookData, bookISBN)
 }
 
+async function updateMaterial(newMaterialData, originalId) {
+    if(newMaterialData.conservacao !== undefined){
+        const lowerCaseStatus = newMaterialData.conservacao.toLowerCase();
+        if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
+            throw errors.invalidInputData('conservacao', newMaterialData.conservacao, 'otimo, bom, regular, ruim ou pessimo');
+        }
+    }
+    
+    const materialExists = await materialRepository.findMaterialById(originalId)
+    if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${originalId}`, 'categoria_material')
+    
+    const materialCategoryExists = await materialRepository.findMaterialCategoryById(newMaterialData.id_categoria_material)
+    if (materialCategoryExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${newMaterialData.id_categoria_material}`, 'categoria_material')
+    
+    const originalMaterialData = materialExists.rows[0]
+    const materialData = await updateData(newMaterialData, originalMaterialData)
+    await materialRepository.updateMaterial(materialData, originalId)
+}
+
 async function deleteBook(isbn: string) {
     const bookExists = await materialRepository.findBookByISBN(isbn)
     if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${isbn}`, 'livro')
@@ -57,5 +76,6 @@ export default {
     registerBook,
     registerMaterial,
     updateBook,
+    updateMaterial,
     deleteBook,
 }

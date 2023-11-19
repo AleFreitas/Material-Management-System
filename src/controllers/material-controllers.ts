@@ -20,7 +20,7 @@ async function updateBook(req: Request, res: Response, next) {
         const { isbn } = req.params
         const newBookData = req.body
         if(!isbn) throw errors.notFoundError()
-        if(!newBookData) throw errors.noBodyError()
+        if(!newBookData  || Object.keys(newBookData).length === 0) throw errors.noBodyError()
         await materialServices.updateBook(newBookData, isbn)
         res.sendStatus(httpStatus.OK)
     } catch(err) {
@@ -52,9 +52,24 @@ async function createMaterial(req: Request, res: Response, next) {
     }
 }
 
+async function updateMaterial(req: Request, res: Response, next) {
+    try{
+        const { id } = req.params
+        const newMaterialData = req.body
+        if(!id) throw errors.notFoundError()
+        if(!newMaterialData || Object.keys(newMaterialData).length === 0) throw errors.noBodyError()
+        await materialServices.updateMaterial(newMaterialData, id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 export default {
     createBook,
     updateBook,
     deleteBook,
     createMaterial,
+    updateMaterial,
 }
