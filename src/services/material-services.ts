@@ -13,6 +13,18 @@ async function registerBook(book: Livro) {
     await materialRepository.insertBook(book);
 }
 
+async function updateBook(newBookData, bookISBN: string) {
+    const bookExists = await materialRepository.findBookByISBN(bookISBN)
+    if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${bookISBN}`, 'livro')
+    const lowerCaseStatus = newBookData.conservacao.toLowerCase();
+    if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
+        throw errors.invalidInputData('conservacao', newBookData.conservacao, 'otimo, bom, regular, ruim ou pessimo');
+    }
+    const originalBookData = bookExists.rows[0]
+    const bookData = await updateData(newBookData, originalBookData)
+    await materialRepository.updateBook(bookData, bookISBN)
+}
+
 async function registerMaterial(material: PayloadRegistroMaterial) {
     const lowerCaseStatus = material.conservacao.toLowerCase();
     if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
@@ -23,9 +35,19 @@ async function registerMaterial(material: PayloadRegistroMaterial) {
     await materialRepository.insertMaterial(material);
 }
 
+function updateData(newData: any, originalData: any): any {
+    const updatedData = { ...newData };
 
+    for (const key in originalData) {
+        if (!(key in updatedData) || !updatedData[key]) {
+            updatedData[key] = originalData[key];
+        }
+    }
+    return updatedData;
+}
 
 export default {
     registerBook,
     registerMaterial,
+    updateBook,
 }

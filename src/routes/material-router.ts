@@ -6,6 +6,7 @@ import materialControllers from "../controllers/material-controllers.js";
 const materialRouter = Router()
 
 materialRouter.post("/book", validateSchema(registerBookSchema), materialControllers.createBook)
+materialRouter.put("/book/:isbn", materialControllers.updateBook)
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 
 export default materialRouter;

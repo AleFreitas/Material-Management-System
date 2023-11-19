@@ -37,10 +37,19 @@ async function insertMaterial(material: PayloadRegistroMaterial): Promise<QueryR
     `, [material.desc, material.data_Aquisicao, material.conservacao, material.localizacao, material.quantidade, material.serial, material.url_imagem, material.id_categoria_material])
 }
 
+async function updateBook(book: any, originalISBN: any): Promise<QueryResult> {
+    return pool.query(`
+        UPDATE livro 
+        SET isbn = $1, descricao = $2, data_aquisicao = $3, conservacao = $4, localizacao = $5, quantidade = $6, titulo = $7, url_capa = $8
+        WHERE isbn = $9
+    `, [book.isbn, book.descricao, book.data_aquisicao, book.conservacao, book.localizacao, book.quantidade, book.titulo, book.url_capa, originalISBN])
+}
+
 export default {
     insertBook,
     insertMaterial,
     findBookByISBN,
     findMaterialCategoryById,
-    findMaterialById
+    findMaterialById,
+    updateBook,
 }
