@@ -14,12 +14,21 @@ async function registerBook(book: Livro) {
 }
 
 async function updateBook(newBookData, bookISBN: string) {
+    if(newBookData.conservacao !== undefined){
+        const lowerCaseStatus = newBookData.conservacao.toLowerCase();
+        if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
+            throw errors.invalidInputData('conservacao', newBookData.conservacao, 'otimo, bom, regular, ruim ou pessimo');
+        }
+    }
+
     const bookExists = await materialRepository.findBookByISBN(bookISBN)
     if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${bookISBN}`, 'livro')
-    const lowerCaseStatus = newBookData.conservacao.toLowerCase();
-    if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
-        throw errors.invalidInputData('conservacao', newBookData.conservacao, 'otimo, bom, regular, ruim ou pessimo');
+    
+    if(bookISBN !== newBookData.isbn) {
+        const newBookISBNAvailable = await materialRepository.findBookByISBN(newBookData.isbn)
+        if(newBookISBNAvailable.rowCount !== 0) throw errors.conflictError('you are trying to change this book isbn to one that is being used')
     }
+
     const originalBookData = bookExists.rows[0]
     const bookData = await updateData(newBookData, originalBookData)
     await materialRepository.updateBook(bookData, bookISBN)
@@ -34,8 +43,13 @@ async function updateMaterial(newMaterialData, originalId) {
     }
     
     const materialExists = await materialRepository.findMaterialById(originalId)
-    if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${originalId}`, 'categoria_material')
-    
+    if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${originalId}`, 'material')
+
+    if(originalId !== newMaterialData.id) {
+        const newMaterialIdAvailable = await materialRepository.findMaterialById(newMaterialData.id)
+        if(newMaterialIdAvailable.rowCount !== 0) throw errors.conflictError('you are trying to change this material id to one that is being used')
+    }
+
     const materialCategoryExists = await materialRepository.findMaterialCategoryById(newMaterialData.id_categoria_material)
     if (materialCategoryExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${newMaterialData.id_categoria_material}`, 'categoria_material')
     
