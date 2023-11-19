@@ -66,10 +66,23 @@ async function updateMaterial(req: Request, res: Response, next) {
     }
 }
 
+async function deleteMaterial(req: Request, res: Response, next) {
+    try{
+        const { id } = req.params
+        if(!id) throw errors.notFoundError()
+        await materialServices.deleteMaterial(id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 export default {
     createBook,
     updateBook,
     deleteBook,
     createMaterial,
     updateMaterial,
+    deleteMaterial,
 }

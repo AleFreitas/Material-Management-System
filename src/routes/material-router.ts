@@ -10,5 +10,6 @@ materialRouter.put("/book/:isbn", materialControllers.updateBook)
 materialRouter.delete("/book/:isbn", materialControllers.deleteBook)
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 materialRouter.put("/material/:id", materialControllers.updateMaterial)
+materialRouter.delete("/material/:id", materialControllers.deleteMaterial)
 
 export default materialRouter;

@@ -64,6 +64,12 @@ async function deleteBook(isbn: string) {
     await materialRepository.deleteBook(isbn)
 }
 
+async function deleteMaterial(id) {
+    const materialExists = await materialRepository.findMaterialById(id)
+    if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${id}`, 'material')
+    await materialRepository.deleteMaterial(id)
+}
+
 
 async function registerMaterial(material: PayloadRegistroMaterial) {
     const lowerCaseStatus = material.conservacao.toLowerCase();
@@ -92,4 +98,5 @@ export default {
     updateBook,
     updateMaterial,
     deleteBook,
+    deleteMaterial,
 }
