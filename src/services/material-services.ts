@@ -25,6 +25,13 @@ async function updateBook(newBookData, bookISBN: string) {
     await materialRepository.updateBook(bookData, bookISBN)
 }
 
+async function deleteBook(isbn: string) {
+    const bookExists = await materialRepository.findBookByISBN(isbn)
+    if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${isbn}`, 'livro')
+    await materialRepository.deleteBook(isbn)
+}
+
+
 async function registerMaterial(material: PayloadRegistroMaterial) {
     const lowerCaseStatus = material.conservacao.toLowerCase();
     if (!(lowerCaseStatus === "otimo" || lowerCaseStatus === "bom" || lowerCaseStatus === "regular" || lowerCaseStatus === "ruim" || lowerCaseStatus === "pessimo")) {
@@ -50,4 +57,5 @@ export default {
     registerBook,
     registerMaterial,
     updateBook,
+    deleteBook,
 }

@@ -29,6 +29,18 @@ async function updateBook(req: Request, res: Response, next) {
     }
 }
 
+async function deleteBook(req: Request, res: Response, next) {
+    try{
+        const { isbn } = req.params
+        if(!isbn) throw errors.notFoundError()
+        await materialServices.deleteBook(isbn)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 async function createMaterial(req: Request, res: Response, next) {
     try {
         const material: PayloadRegistroMaterial = req.body
@@ -43,5 +55,6 @@ async function createMaterial(req: Request, res: Response, next) {
 export default {
     createBook,
     updateBook,
+    deleteBook,
     createMaterial,
 }

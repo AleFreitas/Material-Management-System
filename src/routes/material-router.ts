@@ -7,6 +7,7 @@ const materialRouter = Router()
 
 materialRouter.post("/book", validateSchema(registerBookSchema), materialControllers.createBook)
 materialRouter.put("/book/:isbn", materialControllers.updateBook)
+materialRouter.delete("/book/:isbn", materialControllers.deleteBook)
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 
 export default materialRouter;

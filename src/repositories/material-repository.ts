@@ -45,6 +45,13 @@ async function updateBook(book: any, originalISBN: any): Promise<QueryResult> {
     `, [book.isbn, book.descricao, book.data_aquisicao, book.conservacao, book.localizacao, book.quantidade, book.titulo, book.url_capa, originalISBN])
 }
 
+async function deleteBook(isbn): Promise<QueryResult> {
+    return pool.query(`
+        DELETE FROM livro 
+        WHERE isbn = $1
+    `, [isbn])
+}
+
 export default {
     insertBook,
     insertMaterial,
@@ -52,4 +59,5 @@ export default {
     findMaterialCategoryById,
     findMaterialById,
     updateBook,
+    deleteBook,
 }
