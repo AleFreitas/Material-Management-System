@@ -30,7 +30,7 @@ function notFoundError() {
 function notFoundAtQueryError(data: string,column: string){
     return {
         name: "NotFoundAtQueryError",
-        message: `Couldn't find a ${column} named ${data}`,
+        message: `Couldn't find a ${column} with ${data}`,
     };
 }
 
