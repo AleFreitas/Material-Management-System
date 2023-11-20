@@ -69,6 +69,13 @@ function invalidTokenError(){
     }
 }
 
+function insuficientAcessLevelError(){
+    return {
+        name: "InsuficientAccessLevelError",
+        message: "your access level is insuficient for this operation"
+    }
+}
+
 export default {
     conflictError,
     duplicatedEmailError,
@@ -80,4 +87,5 @@ export default {
     httpsQueryNotGiven,
     noBodyError,
     invalidTokenError,
+    insuficientAcessLevelError
 };
