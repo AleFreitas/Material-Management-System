@@ -18,7 +18,7 @@ async function loginUser(req: Request, res: Response, next) {
     try {
         const user: PayloadLoginUsuario = req.body
         const token = await userServices.loginUser(user)
-        res.status(httpStatus.OK).send(token)
+        res.status(httpStatus.OK).send({token})
     } catch (err) {
         console.log(err)
         return next(err);
