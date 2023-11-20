@@ -33,8 +33,23 @@ async function insertBook(book: Livro): Promise<QueryResult> {
 async function insertMaterial(material: PayloadRegistroMaterial): Promise<QueryResult> {
     return pool.query(`
         INSERT INTO material_didatico ("desc", "data_Aquisicao", conservacao, localizacao, quantidade, serial, url_imagem, id_categoria_material)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+        RETURNING *;
     `, [material.desc, material.data_Aquisicao, material.conservacao, material.localizacao, material.quantidade, material.serial, material.url_imagem, material.id_categoria_material])
+}
+
+async function insertBookItem(isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        INSERT INTO item (isbn)
+        VALUES ($1);
+    `, [isbn])
+}
+
+async function insertMaterialItem(id_material: any): Promise<QueryResult> {
+    return pool.query(`
+        INSERT INTO item (id_material)
+        VALUES ($1);
+    `, [id_material])
 }
 
 async function updateBook(book: any, originalISBN: any): Promise<QueryResult> {
@@ -60,6 +75,13 @@ async function deleteBook(isbn): Promise<QueryResult> {
     `, [isbn])
 }
 
+async function deleteBookItem(isbn): Promise<QueryResult> {
+    return pool.query(`
+        DELETE FROM item 
+        WHERE isbn = $1
+    `, [isbn])
+}
+
 async function deleteMaterial(id): Promise<QueryResult> {
     return pool.query(`
         DELETE FROM material_didatico
@@ -67,14 +89,25 @@ async function deleteMaterial(id): Promise<QueryResult> {
     `, [id])
 }
 
+async function deleteMaterialItem(id): Promise<QueryResult> {
+    return pool.query(`
+        DELETE FROM item
+        WHERE id_material = $1
+    `, [id])
+}
+
 export default {
     insertBook,
+    insertBookItem,
     insertMaterial,
+    insertMaterialItem,
     findBookByISBN,
     findMaterialCategoryById,
     findMaterialById,
     updateBook,
     updateMaterial,
     deleteBook,
+    deleteBookItem,
     deleteMaterial,
+    deleteMaterialItem,
 }

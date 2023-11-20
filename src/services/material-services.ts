@@ -11,6 +11,7 @@ async function registerBook(book: Livro) {
         throw errors.invalidInputData('conservacao', book.conservacao, 'otimo, bom, regular, ruim ou pessimo');
     }
     await materialRepository.insertBook(book);
+    await materialRepository.insertBookItem(book.isbn)
 }
 
 async function updateBook(newBookData, bookISBN: string) {
@@ -61,12 +62,14 @@ async function updateMaterial(newMaterialData, originalId) {
 async function deleteBook(isbn: string) {
     const bookExists = await materialRepository.findBookByISBN(isbn)
     if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${isbn}`, 'livro')
+    await materialRepository.deleteBookItem(isbn)
     await materialRepository.deleteBook(isbn)
 }
 
 async function deleteMaterial(id) {
     const materialExists = await materialRepository.findMaterialById(id)
     if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${id}`, 'material')
+    await materialRepository.deleteMaterialItem(id)
     await materialRepository.deleteMaterial(id)
 }
 
@@ -78,7 +81,9 @@ async function registerMaterial(material: PayloadRegistroMaterial) {
     }
     const materialCategoryExists = await materialRepository.findMaterialCategoryById(material.id_categoria_material)
     if (materialCategoryExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${material.id_categoria_material}`, 'categoria_material')
-    await materialRepository.insertMaterial(material);
+
+    const materialResponse = await materialRepository.insertMaterial(material);
+    await materialRepository.insertMaterialItem(materialResponse.rows[0].id)
 }
 
 function updateData(newData: any, originalData: any): any {
