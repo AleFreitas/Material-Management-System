@@ -28,4 +28,9 @@ const registerAuthorSchema = Joi.object({
     email: Joi.string().email().required(),
 });
 
-export{ registerBookSchema, registerMaterialSchema, registerAuthorSchema }
+const registerBookAuthorSchema = Joi.object({
+    id_autor: Joi.number().required(),
+    isbn: Joi.string().required(),
+});
+
+export{ registerBookSchema, registerMaterialSchema, registerAuthorSchema, registerBookAuthorSchema }

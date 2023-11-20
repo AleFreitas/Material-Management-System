@@ -28,5 +28,12 @@ export type Author = {
     email: string,
 }
 
+export type BookAuthor = {
+    id: number,
+    id_autor: number,
+    isbn: string,
+}
+
+export type PayloadRegisterBookAuthor = Omit<BookAuthor, 'id'>;
 export type PayloadRegisterAuthor = Omit<Author, 'id'>;
 export type PayloadRegistroMaterial = Omit<Material, 'id'>;

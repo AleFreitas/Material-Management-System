@@ -37,6 +37,13 @@ async function findAuthorById(id: any): Promise<QueryResult> {
     `,[id])
 }
 
+async function findBookAuthorRelation(id: any, isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM autor_livro
+        WHERE id_autor = $1 AND isbn = $2
+    `,[id, isbn])
+}
+
 async function insertBook(book: Livro): Promise<QueryResult> {
     return pool.query(`
         INSERT INTO livro (isbn, descricao, data_aquisicao, conservacao, localizacao, quantidade, titulo, url_capa)
@@ -71,6 +78,13 @@ async function insertAuthor(author: PayloadRegisterAuthor): Promise<QueryResult>
         INSERT INTO autor (nome, sobrenome, email)
         VALUES ($1, $2, $3);
     `, [author.nome, author.sobrenome, author.email])
+}
+
+async function insertBookAuthor(id: any, isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        INSERT INTO autor_livro (id_autor, isbn)
+        VALUES ($1, $2);
+    `, [id, isbn])
 }
 
 async function updateBook(book: any, originalISBN: any): Promise<QueryResult> {
@@ -138,11 +152,13 @@ export default {
     insertMaterial,
     insertMaterialItem,
     insertAuthor,
+    insertBookAuthor,
     findBookByISBN,
     findMaterialCategoryById,
     findMaterialById,
     findAuthorByEmail,
     findAuthorById,
+    findBookAuthorRelation,
     updateBook,
     updateMaterial,
     updateAuthor,

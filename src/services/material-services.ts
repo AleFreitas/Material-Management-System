@@ -1,6 +1,6 @@
 import errors from "../errors/index.js";
 import materialRepository from "../repositories/material-repository.js";
-import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function registerBook(book: Livro) {
     const bookExists = await materialRepository.findBookByISBN(book.isbn)
@@ -106,6 +106,26 @@ async function updateAuthor(author: Partial<PayloadRegisterAuthor>, authorId: an
     await materialRepository.updateAuthor(authorData, authorId)
 }
 
+async function deleteAuthor(id: any) {
+    const authorExists = await materialRepository.findAuthorById(id)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+
+    await materialRepository.deleteAuthor(id)
+}
+
+async function registerBookAuthor(body: PayloadRegisterBookAuthor) {
+    const relationExists = await materialRepository.findBookAuthorRelation(body.id_autor, body.isbn)
+    if(relationExists.rowCount !== 0) throw errors.conflictError("this user is already an author of this book")
+
+    const authorExists = await materialRepository.findAuthorById(body.id_autor)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+
+    const bookExists = await materialRepository.findBookByISBN(body.isbn)
+    if(bookExists.rowCount === 0) throw errors.notFoundError()
+    
+    await materialRepository.insertBookAuthor(body.id_autor, body.isbn)
+}
+
 function updateData(newData: any, originalData: any): any {
     const updatedData = { ...newData };
 
@@ -117,17 +137,11 @@ function updateData(newData: any, originalData: any): any {
     return updatedData;
 }
 
-async function deleteAuthor(id: any) {
-    const authorExists = await materialRepository.findAuthorById(id)
-    if(authorExists.rowCount === 0) throw errors.notFoundError()
-
-    await materialRepository.deleteAuthor(id)
-}
-
 export default {
     registerBook,
     registerMaterial,
     registerAuthor,
+    registerBookAuthor,
     updateBook,
     updateMaterial,
     updateAuthor,
