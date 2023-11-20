@@ -76,8 +76,23 @@ function insuficientAcessLevelError(){
     }
 }
 
+function notEnoughItemsError(){
+    return {
+        name: "NotEnoughItemsError",
+        message: "All copies of this item have already been loaned"
+    }
+}
+
+function loanInProgressError(){
+    return {
+        name: "LoanInProgressError",
+        message: "User has an active loan of this item"
+    }
+}
+
 export default {
     conflictError,
+    notEnoughItemsError,
     duplicatedEmailError,
     unauthorizedError,
     notFoundError,
@@ -87,5 +102,6 @@ export default {
     httpsQueryNotGiven,
     noBodyError,
     invalidTokenError,
-    insuficientAcessLevelError
+    insuficientAcessLevelError,
+    loanInProgressError,
 };
