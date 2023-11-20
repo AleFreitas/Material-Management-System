@@ -90,8 +90,16 @@ function loanInProgressError(){
     }
 }
 
+function pendingFineError(){
+    return {
+        name: "PendingFineError",
+        message: "This loan has an active fine that has not been paid"
+    }
+}
+
 export default {
     conflictError,
+    pendingFineError,
     notEnoughItemsError,
     duplicatedEmailError,
     unauthorizedError,

@@ -30,8 +30,16 @@ async function findLoanByItemIdAndUserId(itemId: any, userId: any): Promise<Quer
     `, [itemId, userId])
 }
 
+async function deleteLoanByItemIdAndUserId(itemId: any, userId: any): Promise<QueryResult> {
+    return pool.query(`
+        DELETE FROM emprestimo
+        WHERE id_item = $1 AND id_usuario = $2;
+    `, [itemId, userId])
+}
+
 export default {
     insertLoan,
+    deleteLoanByItemIdAndUserId,
     findItemById,
     findLoansByItemId,
     findLoanByItemIdAndUserId

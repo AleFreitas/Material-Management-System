@@ -33,6 +33,20 @@ async function registerLoan(itemId: any, usuario: Usuario) {
     await loanRepository.insertLoan(usuario.id, loan)
 }
 
+async function completeLoan(itemId: any, usuario: Usuario) {
+    const userLoanedThisItem = await loanRepository.findLoanByItemIdAndUserId(itemId, usuario.id)
+    if(userLoanedThisItem.rowCount === 0) throw errors.notFoundError()
+
+    const today = new Date()
+    const dataDevolucao = new Date(userLoanedThisItem.rows[0].data_devolucao);
+    const timeDiff = (dataDevolucao.getTime() - today.getTime());
+    const differenceInDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+    if(differenceInDays < 0) throw errors.pendingFineError()
+
+    await loanRepository.deleteLoanByItemIdAndUserId(itemId, usuario.id)
+}
+
 export default {
     registerLoan,
+    completeLoan,
 }

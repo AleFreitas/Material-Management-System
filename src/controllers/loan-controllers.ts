@@ -17,6 +17,21 @@ async function createLoan(req: Request, res: Response, next) {
     }
 }
 
+async function completeLoan(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+
+        const { itemId } = req.params
+        await loanServices.completeLoan(itemId, usuario)
+        res.sendStatus(httpStatus.OK)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createLoan,
+    completeLoan,
 }
