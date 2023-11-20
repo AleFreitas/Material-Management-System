@@ -9,6 +9,13 @@ async function findUserByEmail(email: string): Promise<QueryResult<Usuario>> {
     `, [email]);
 }
 
+async function findUserById(id): Promise<QueryResult<Usuario>> {
+    return pool.query(`
+        SELECT * FROM usuario
+        WHERE id=$1;         
+    `, [id]);
+}
+
 async function insertUser(user: PayloadRegistroUsuario): Promise<QueryResult> {
     return pool.query(`
         INSERT INTO usuario (nome, sobrenome, funcao, email, senha, url_imagem)
@@ -18,5 +25,6 @@ async function insertUser(user: PayloadRegistroUsuario): Promise<QueryResult> {
 
 export default {
     findUserByEmail,
+    findUserById,
     insertUser
 }

@@ -3,6 +3,9 @@ import httpStatus from 'http-status';
 import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
 import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
+import sessionRepository from "../repositories/session-repository.js";
+import userRepository from "../repositories/user-repository.js";
+import authUtils from "../utils/auth-utils.js";
 
 async function createBook(req: Request, res: Response, next) {
     try {
@@ -68,6 +71,10 @@ async function updateMaterial(req: Request, res: Response, next) {
 
 async function deleteMaterial(req: Request, res: Response, next) {
     try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
         const { id } = req.params
         if(!id) throw errors.notFoundError()
         await materialServices.deleteMaterial(id)
