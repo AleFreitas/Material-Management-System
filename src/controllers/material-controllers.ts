@@ -9,6 +9,10 @@ import authUtils from "../utils/auth-utils.js";
 
 async function createBook(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
         const book: Livro = req.body
         await materialServices.registerBook(book)
         res.sendStatus(httpStatus.CREATED)
@@ -20,6 +24,10 @@ async function createBook(req: Request, res: Response, next) {
 
 async function updateBook(req: Request, res: Response, next) {
     try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        
         const { isbn } = req.params
         const newBookData = req.body
         if(!isbn) throw errors.notFoundError()
@@ -34,6 +42,10 @@ async function updateBook(req: Request, res: Response, next) {
 
 async function deleteBook(req: Request, res: Response, next) {
     try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
         const { isbn } = req.params
         if(!isbn) throw errors.notFoundError()
         await materialServices.deleteBook(isbn)
@@ -46,6 +58,10 @@ async function deleteBook(req: Request, res: Response, next) {
 
 async function createMaterial(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
         const material: PayloadRegistroMaterial = req.body
         await materialServices.registerMaterial(material)
         res.sendStatus(httpStatus.CREATED)
@@ -57,6 +73,10 @@ async function createMaterial(req: Request, res: Response, next) {
 
 async function updateMaterial(req: Request, res: Response, next) {
     try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        
         const { id } = req.params
         const newMaterialData = req.body
         if(!id) throw errors.notFoundError()
