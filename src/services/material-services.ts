@@ -1,6 +1,6 @@
 import errors from "../errors/index.js";
 import materialRepository from "../repositories/material-repository.js";
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function registerBook(book: Livro) {
     const bookExists = await materialRepository.findBookByISBN(book.isbn)
@@ -11,6 +11,7 @@ async function registerBook(book: Livro) {
         throw errors.invalidInputData('conservacao', book.conservacao, 'otimo, bom, regular, ruim ou pessimo');
     }
     await materialRepository.insertBook(book);
+    await materialRepository.insertBookItem(book.isbn)
 }
 
 async function updateBook(newBookData, bookISBN: string) {
@@ -61,12 +62,14 @@ async function updateMaterial(newMaterialData, originalId) {
 async function deleteBook(isbn: string) {
     const bookExists = await materialRepository.findBookByISBN(isbn)
     if(bookExists.rowCount === 0) throw errors.notFoundAtQueryError(`ISBN ${isbn}`, 'livro')
+    await materialRepository.deleteBookItem(isbn)
     await materialRepository.deleteBook(isbn)
 }
 
 async function deleteMaterial(id) {
     const materialExists = await materialRepository.findMaterialById(id)
     if (materialExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${id}`, 'material')
+    await materialRepository.deleteMaterialItem(id)
     await materialRepository.deleteMaterial(id)
 }
 
@@ -78,7 +81,56 @@ async function registerMaterial(material: PayloadRegistroMaterial) {
     }
     const materialCategoryExists = await materialRepository.findMaterialCategoryById(material.id_categoria_material)
     if (materialCategoryExists.rowCount === 0) throw errors.notFoundAtQueryError(`id ${material.id_categoria_material}`, 'categoria_material')
-    await materialRepository.insertMaterial(material);
+
+    const materialResponse = await materialRepository.insertMaterial(material);
+    await materialRepository.insertMaterialItem(materialResponse.rows[0].id)
+}
+
+async function registerAuthor(author: PayloadRegisterAuthor) {
+    const authorExists = await materialRepository.findAuthorByEmail(author.email)
+    if(authorExists.rowCount !== 0) throw errors.conflictError('email already being used')
+    
+    await materialRepository.insertAuthor(author)
+}
+
+async function updateAuthor(author: Partial<PayloadRegisterAuthor>, authorId: any) {
+    const authorExists = await materialRepository.findAuthorById(authorId)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+    if(author.email) {
+        if(authorExists.rows[0].email !== author.email){
+            const newEmailAvailable = await materialRepository.findAuthorByEmail(author.email)
+            if(newEmailAvailable.rowCount !== 0) throw errors.conflictError('you are trying to change this email to one that is being used')
+        }
+    }
+    const authorData = updateData(author, authorExists.rows[0])
+    await materialRepository.updateAuthor(authorData, authorId)
+}
+
+async function deleteAuthor(id: any) {
+    const authorExists = await materialRepository.findAuthorById(id)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+
+    await materialRepository.deleteAuthor(id)
+}
+
+async function registerBookAuthor(body: PayloadRegisterBookAuthor) {
+    const relationExists = await materialRepository.findBookAuthorRelation(body.id_autor, body.isbn)
+    if(relationExists.rowCount !== 0) throw errors.conflictError("this user is already an author of this book")
+
+    const authorExists = await materialRepository.findAuthorById(body.id_autor)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+
+    const bookExists = await materialRepository.findBookByISBN(body.isbn)
+    if(bookExists.rowCount === 0) throw errors.notFoundError()
+    
+    await materialRepository.insertBookAuthor(body.id_autor, body.isbn)
+}
+
+async function deleteBookAuthor(id: any, isbn: any) {
+    const bookAuthorExists = await materialRepository.findBookAuthorRelation(id, isbn)
+    if(bookAuthorExists.rowCount === 0) throw errors.notFoundError()
+
+    await materialRepository.deleteBookAuthor(id, isbn)
 }
 
 function updateData(newData: any, originalData: any): any {
@@ -95,8 +147,13 @@ function updateData(newData: any, originalData: any): any {
 export default {
     registerBook,
     registerMaterial,
+    registerAuthor,
+    registerBookAuthor,
     updateBook,
     updateMaterial,
+    updateAuthor,
     deleteBook,
     deleteMaterial,
+    deleteAuthor,
+    deleteBookAuthor,
 }

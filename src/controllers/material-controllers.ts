@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
 import sessionRepository from "../repositories/session-repository.js";
@@ -105,6 +105,85 @@ async function deleteMaterial(req: Request, res: Response, next) {
     }
 }
 
+async function createAuthor(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const author: PayloadRegisterAuthor = req.body
+        await materialServices.registerAuthor(author)
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function updateAuthor(req: Request, res: Response, next) {
+    try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        
+        const { id } = req.params
+        const newAuthorData = req.body
+        if(!id) throw errors.notFoundError()
+        if(!newAuthorData || Object.keys(newAuthorData).length === 0) throw errors.noBodyError()
+        await materialServices.updateAuthor(newAuthorData, id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
+async function deleteAuthor(req: Request, res: Response, next) {
+    try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const { id } = req.params
+        if(!id) throw errors.notFoundError()
+        await materialServices.deleteAuthor(id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
+async function insertBookAuthor(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const body: PayloadRegisterBookAuthor = req.body
+        await materialServices.registerBookAuthor(body)
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function deleteBookAuthor(req: Request, res: Response, next) {
+    try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const { id, isbn } = req.params
+        await materialServices.deleteBookAuthor(id, isbn)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -112,4 +191,9 @@ export default {
     createMaterial,
     updateMaterial,
     deleteMaterial,
+    createAuthor,
+    updateAuthor,
+    deleteAuthor,
+    insertBookAuthor,
+    deleteBookAuthor,
 }

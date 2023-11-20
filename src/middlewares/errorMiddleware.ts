@@ -32,6 +32,24 @@ export function handleApplicationErrors(err, req: Request, res: Response, next) 
         })
     }
 
+    if (err.name === "NotEnoughItemsError") {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: err.message
+        })
+    }
+
+    if (err.name === "LoanInProgressError") {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: err.message
+        })
+    }
+
+    if (err.name === "PendingFineError") {
+        return res.status(httpStatus.BAD_REQUEST).send({
+            message: err.message
+        })
+    }
+
     if (err.name === "InsuficientAccessLevelError") {
         return res.status(httpStatus.UNAUTHORIZED).send({
             message: err.message
