@@ -1,6 +1,6 @@
 import pool from "../config/database.js"
 import { QueryResult } from "pg";
-import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Author, Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function findMaterialById(id: number): Promise<QueryResult> {
     return pool.query(`
@@ -28,6 +28,13 @@ async function findAuthorByEmail(email: string): Promise<QueryResult> {
         SELECT * FROM autor
         WHERE email = $1
     `,[email])
+}
+
+async function findAuthorById(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM autor
+        WHERE id = $1
+    `,[id])
 }
 
 async function insertBook(book: Livro): Promise<QueryResult> {
@@ -82,6 +89,14 @@ async function updateMaterial(material: any, originalId: any): Promise<QueryResu
     `, [material.id, material.desc, material.data_Aquisicao, material.conservacao, material.localizacao, material.quantidade, material.serial, material.url_imagem, material.id_categoria_material, originalId])
 }
 
+async function updateAuthor(author: PayloadRegisterAuthor, authorId: any): Promise<QueryResult> {
+    return pool.query(`
+        UPDATE autor
+        SET nome = $1, sobrenome = $2, email = $3
+        WHERE id = $4;
+    `, [author.nome, author.sobrenome, author.email, authorId])
+}
+
 async function deleteBook(isbn): Promise<QueryResult> {
     return pool.query(`
         DELETE FROM livro 
@@ -120,8 +135,10 @@ export default {
     findMaterialCategoryById,
     findMaterialById,
     findAuthorByEmail,
+    findAuthorById,
     updateBook,
     updateMaterial,
+    updateAuthor,
     deleteBook,
     deleteBookItem,
     deleteMaterial,

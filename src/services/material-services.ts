@@ -86,6 +86,26 @@ async function registerMaterial(material: PayloadRegistroMaterial) {
     await materialRepository.insertMaterialItem(materialResponse.rows[0].id)
 }
 
+async function registerAuthor(author: PayloadRegisterAuthor) {
+    const authorExists = await materialRepository.findAuthorByEmail(author.email)
+    if(authorExists.rowCount !== 0) throw errors.conflictError('email already being used')
+    
+    await materialRepository.insertAuthor(author)
+}
+
+async function updateAuthor(author: Partial<PayloadRegisterAuthor>, authorId: any) {
+    const authorExists = await materialRepository.findAuthorById(authorId)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+    if(author.email) {
+        if(authorExists.rows[0].email !== author.email){
+            const newEmailAvailable = await materialRepository.findAuthorByEmail(author.email)
+            if(newEmailAvailable.rowCount !== 0) throw errors.conflictError('you are trying to change this email to one that is being used')
+        }
+    }
+    const authorData = updateData(author, authorExists.rows[0])
+    await materialRepository.updateAuthor(authorData, authorId)
+}
+
 function updateData(newData: any, originalData: any): any {
     const updatedData = { ...newData };
 
@@ -97,19 +117,13 @@ function updateData(newData: any, originalData: any): any {
     return updatedData;
 }
 
-async function registerAuthor(author: PayloadRegisterAuthor) {
-    const authorExists = await materialRepository.findAuthorByEmail(author.email)
-    if(authorExists.rowCount !== 0) throw errors.conflictError('email already being used')
-    
-    await materialRepository.insertAuthor(author)
-}
-
 export default {
     registerBook,
     registerMaterial,
     registerAuthor,
     updateBook,
     updateMaterial,
+    updateAuthor,
     deleteBook,
     deleteMaterial,
 }

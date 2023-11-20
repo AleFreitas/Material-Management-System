@@ -120,6 +120,24 @@ async function createAuthor(req: Request, res: Response, next) {
     }
 }
 
+async function updateAuthor(req: Request, res: Response, next) {
+    try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        
+        const { id } = req.params
+        const newAuthorData = req.body
+        if(!id) throw errors.notFoundError()
+        if(!newAuthorData || Object.keys(newAuthorData).length === 0) throw errors.noBodyError()
+        await materialServices.updateAuthor(newAuthorData, id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -128,4 +146,5 @@ export default {
     updateMaterial,
     deleteMaterial,
     createAuthor,
+    updateAuthor,
 }
