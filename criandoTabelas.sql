@@ -176,8 +176,8 @@ END $$;
 CREATE TABLE IF NOT EXISTS public.item
 (
     id serial NOT NULL PRIMARY KEY,
-    isbn VARCHAR(20) NOT NULL REFERENCES livro(isbn),
-    id_material bigint NOT NULL REFERENCES material_didatico(id)
+    isbn VARCHAR(20) REFERENCES livro(isbn),
+    id_material bigint REFERENCES material_didatico(id)
 );
 
 CREATE TABLE IF NOT EXISTS public.emprestimo
@@ -187,7 +187,8 @@ CREATE TABLE IF NOT EXISTS public.emprestimo
     id_item bigint NOT NULL REFERENCES item(id),
     data_emprestimo date NOT NULL,
     data_devolucao date NOT NULL,
-    status boolean NOT NULL
+    status boolean NOT NULL,
+    multa numeric NOT NULL DEFAULT 0
 );
 
 END;
