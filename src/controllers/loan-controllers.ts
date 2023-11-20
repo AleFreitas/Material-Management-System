@@ -31,7 +31,23 @@ async function completeLoan(req: Request, res: Response, next) {
     }
 }
 
+async function renewLoan(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+
+        const { itemId } = req.params
+        const { new_date } = req.body
+        await loanServices.renewLoan(itemId, usuario, new_date)
+        res.sendStatus(httpStatus.OK)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createLoan,
     completeLoan,
+    renewLoan,
 }

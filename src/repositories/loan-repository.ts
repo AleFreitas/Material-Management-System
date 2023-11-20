@@ -37,10 +37,19 @@ async function deleteLoanByItemIdAndUserId(itemId: any, userId: any): Promise<Qu
     `, [itemId, userId])
 }
 
+async function updateReturnDate(itemId: any, userId: any, newDate: any): Promise<QueryResult> {
+    return pool.query(`
+        UPDATE emprestimo
+        SET data_devolucao = $3
+        WHERE id_item = $1 AND id_usuario = $2;
+    `, [itemId, userId, newDate])
+}
+
 export default {
     insertLoan,
     deleteLoanByItemIdAndUserId,
     findItemById,
     findLoansByItemId,
-    findLoanByItemIdAndUserId
+    findLoanByItemIdAndUserId,
+    updateReturnDate,
 }
