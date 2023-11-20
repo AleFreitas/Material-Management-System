@@ -62,6 +62,13 @@ function invalidInputData(field, received, expected) {
     }
 }
 
+function invalidTokenError(){
+    return {
+        name: "InvalidTokenError",
+        message: "the authorization header of this request received an invalid token"
+    }
+}
+
 export default {
     conflictError,
     duplicatedEmailError,
@@ -72,4 +79,5 @@ export default {
     notFoundAtQueryError,
     httpsQueryNotGiven,
     noBodyError,
+    invalidTokenError,
 };
