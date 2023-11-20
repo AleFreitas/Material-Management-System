@@ -54,7 +54,8 @@ CREATE TABLE IF NOT EXISTS public.autor
 (
     id serial NOT NULL PRIMARY KEY,
     nome character varying NOT NULL,
-    sobrenome character varying NOT NULL
+    sobrenome character varying NOT NULL,
+    email character varying UNIQUE NOT NULL
 );
 
 
