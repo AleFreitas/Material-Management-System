@@ -1,6 +1,6 @@
 import pool from "../config/database.js"
 import { QueryResult } from "pg";
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function findMaterialById(id: number): Promise<QueryResult> {
     return pool.query(`
@@ -21,6 +21,13 @@ async function findBookByISBN(isbn: string): Promise<QueryResult> {
         SELECT * FROM livro 
         WHERE isbn = $1
     `,[isbn])
+}
+
+async function findAuthorByEmail(email: string): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM autor
+        WHERE email = $1
+    `,[email])
 }
 
 async function insertBook(book: Livro): Promise<QueryResult> {
@@ -50,6 +57,13 @@ async function insertMaterialItem(id_material: any): Promise<QueryResult> {
         INSERT INTO item (id_material)
         VALUES ($1);
     `, [id_material])
+}
+
+async function insertAuthor(author: PayloadRegisterAuthor): Promise<QueryResult> {
+    return pool.query(`
+        INSERT INTO autor (nome, sobrenome, email)
+        VALUES ($1, $2, $3);
+    `, [author.nome, author.sobrenome, author.email])
 }
 
 async function updateBook(book: any, originalISBN: any): Promise<QueryResult> {
@@ -101,9 +115,11 @@ export default {
     insertBookItem,
     insertMaterial,
     insertMaterialItem,
+    insertAuthor,
     findBookByISBN,
     findMaterialCategoryById,
     findMaterialById,
+    findAuthorByEmail,
     updateBook,
     updateMaterial,
     deleteBook,

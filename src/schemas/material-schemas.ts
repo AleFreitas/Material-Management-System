@@ -22,4 +22,10 @@ const registerMaterialSchema = Joi.object({
     id_categoria_material: Joi.number().required(),
 });
 
-export{ registerBookSchema, registerMaterialSchema }
+const registerAuthorSchema = Joi.object({
+    nome: Joi.string().required(),
+    sobrenome: Joi.string().required(),
+    email: Joi.string().email().required(),
+});
+
+export{ registerBookSchema, registerMaterialSchema, registerAuthorSchema }

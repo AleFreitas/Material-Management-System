@@ -1,6 +1,6 @@
 import errors from "../errors/index.js";
 import materialRepository from "../repositories/material-repository.js";
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function registerBook(book: Livro) {
     const bookExists = await materialRepository.findBookByISBN(book.isbn)
@@ -97,9 +97,17 @@ function updateData(newData: any, originalData: any): any {
     return updatedData;
 }
 
+async function registerAuthor(author: PayloadRegisterAuthor) {
+    const authorExists = await materialRepository.findAuthorByEmail(author.email)
+    if(authorExists.rowCount !== 0) throw errors.conflictError('email already being used')
+    
+    await materialRepository.insertAuthor(author)
+}
+
 export default {
     registerBook,
     registerMaterial,
+    registerAuthor,
     updateBook,
     updateMaterial,
     deleteBook,

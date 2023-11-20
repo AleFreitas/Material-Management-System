@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
 import sessionRepository from "../repositories/session-repository.js";
@@ -105,6 +105,21 @@ async function deleteMaterial(req: Request, res: Response, next) {
     }
 }
 
+async function createAuthor(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const author: PayloadRegisterAuthor = req.body
+        await materialServices.registerAuthor(author)
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -112,4 +127,5 @@ export default {
     createMaterial,
     updateMaterial,
     deleteMaterial,
+    createAuthor,
 }

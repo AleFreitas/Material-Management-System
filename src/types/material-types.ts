@@ -21,5 +21,12 @@ export type Material = {
     id_categoria_material: number,
 }
 
+export type Author = {
+    id: number,
+    nome: string,
+    sobrenome: string,
+    email: string,
+}
 
+export type PayloadRegisterAuthor = Omit<Author, 'id'>;
 export type PayloadRegistroMaterial = Omit<Material, 'id'>;
