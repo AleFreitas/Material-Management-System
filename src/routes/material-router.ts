@@ -17,6 +17,7 @@ materialRouter.post("/author", validateSchema(registerAuthorSchema), materialCon
 materialRouter.put("/author/:id", materialControllers.updateAuthor)
 materialRouter.delete("/author/:id", materialControllers.deleteAuthor)
 
-materialRouter.post("/book/author", validateSchema(registerBookAuthorSchema), materialControllers.insertBookAuthor)
+materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), materialControllers.insertBookAuthor)
+materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
 
 export default materialRouter;

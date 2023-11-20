@@ -126,6 +126,13 @@ async function registerBookAuthor(body: PayloadRegisterBookAuthor) {
     await materialRepository.insertBookAuthor(body.id_autor, body.isbn)
 }
 
+async function deleteBookAuthor(id: any, isbn: any) {
+    const bookAuthorExists = await materialRepository.findBookAuthorRelation(id, isbn)
+    if(bookAuthorExists.rowCount === 0) throw errors.notFoundError()
+
+    await materialRepository.deleteBookAuthor(id, isbn)
+}
+
 function updateData(newData: any, originalData: any): any {
     const updatedData = { ...newData };
 
@@ -148,4 +155,5 @@ export default {
     deleteBook,
     deleteMaterial,
     deleteAuthor,
+    deleteBookAuthor,
 }
