@@ -15,5 +15,6 @@ materialRouter.delete("/material/:id", materialControllers.deleteMaterial)
 
 materialRouter.post("/author", validateSchema(registerAuthorSchema), materialControllers.createAuthor)
 materialRouter.put("/author/:id", materialControllers.updateAuthor)
+materialRouter.delete("/author/:id", materialControllers.deleteAuthor)
 
 export default materialRouter;

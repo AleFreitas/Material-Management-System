@@ -138,6 +138,22 @@ async function updateAuthor(req: Request, res: Response, next) {
     }
 }
 
+async function deleteAuthor(req: Request, res: Response, next) {
+    try{
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const { id } = req.params
+        if(!id) throw errors.notFoundError()
+        await materialServices.deleteAuthor(id)
+        res.sendStatus(httpStatus.OK)
+    } catch(err) {
+        console.log(err)
+        return next(err)
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -147,4 +163,5 @@ export default {
     deleteMaterial,
     createAuthor,
     updateAuthor,
+    deleteAuthor,
 }

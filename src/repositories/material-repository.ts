@@ -125,6 +125,13 @@ async function deleteMaterialItem(id): Promise<QueryResult> {
     `, [id])
 }
 
+async function deleteAuthor(id): Promise<QueryResult> {
+    return pool.query(`
+        DELETE FROM autor
+        WHERE id = $1
+    `, [id])
+}
+
 export default {
     insertBook,
     insertBookItem,
@@ -143,4 +150,5 @@ export default {
     deleteBookItem,
     deleteMaterial,
     deleteMaterialItem,
+    deleteAuthor,
 }

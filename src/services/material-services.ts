@@ -117,6 +117,13 @@ function updateData(newData: any, originalData: any): any {
     return updatedData;
 }
 
+async function deleteAuthor(id: any) {
+    const authorExists = await materialRepository.findAuthorById(id)
+    if(authorExists.rowCount === 0) throw errors.notFoundError()
+
+    await materialRepository.deleteAuthor(id)
+}
+
 export default {
     registerBook,
     registerMaterial,
@@ -126,4 +133,5 @@ export default {
     updateAuthor,
     deleteBook,
     deleteMaterial,
+    deleteAuthor,
 }
