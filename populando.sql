@@ -27,11 +27,11 @@ VALUES
     ('Infantil');
 
 -- Populate Autor Table
-INSERT INTO public.autor (nome, sobrenome)
+INSERT INTO public.autor (nome, sobrenome, email)
 VALUES
-    ('Autor1', 'Sobrenome1'),
-    ('Autor2', 'Sobrenome2'),
-    ('Autor3', 'Sobrenome3');
+    ('Autor1', 'Sobrenome1', 'autor1@mail.com'),
+    ('Autor2', 'Sobrenome2', 'autor2@mail.com'),
+    ('Autor3', 'Sobrenome3', 'autor3@mail.com');
 
 -- Populate Sessao Table (assuming some existing Usuario records)
 INSERT INTO public.sessao (id_usuario, token)
@@ -41,11 +41,11 @@ VALUES
     (3, 'token789');
 
 -- Populate Categoria Material Table (assuming some existing Material Didatico records)
-INSERT INTO public.categoria_material (id_material_didatico, nome)
+INSERT INTO public.categoria_material (nome)
 VALUES
-    (1, 'Categoria1'),
-    (2, 'Categoria2'),
-    (3, 'Categoria3');
+    ('Categoria1'),
+    ('Categoria2'),
+    ('Categoria3');
 
 -- Populate Autor Livro Table (assuming some existing Autor and Livro records)
 INSERT INTO public.autor_livro (id_autor, isbn)
