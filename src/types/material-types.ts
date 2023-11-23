@@ -34,6 +34,14 @@ export type BookAuthor = {
     isbn: string,
 }
 
+export type Category = {
+    id: number,
+    nome: string,
+}
+
+export type PayloadRegisterCategory = Omit<Category, 'id'> & {
+    tipo_de_categoria: string,
+};
 export type PayloadRegisterBookAuthor = Omit<BookAuthor, 'id'>;
 export type PayloadRegisterAuthor = Omit<Author, 'id'>;
 export type PayloadRegistroMaterial = Omit<Material, 'id'>;

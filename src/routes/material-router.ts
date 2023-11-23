@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateSchema } from "../middlewares/validateSchema.js";
-import { registerAuthorSchema, registerBookAuthorSchema, registerBookSchema, registerMaterialSchema } from "../schemas/material-schemas.js";
+import { registerAuthorSchema, registerBookAuthorSchema, registerBookSchema, registerCategorySchema, registerMaterialSchema } from "../schemas/material-schemas.js";
 import materialControllers from "../controllers/material-controllers.js";
 
 const materialRouter = Router()
@@ -19,5 +19,7 @@ materialRouter.delete("/author/:id", materialControllers.deleteAuthor)
 
 materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), materialControllers.insertBookAuthor)
 materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
+
+materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
 
 export default materialRouter;

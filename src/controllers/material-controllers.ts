@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
 import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
 import sessionRepository from "../repositories/session-repository.js";
@@ -184,6 +184,27 @@ async function deleteBookAuthor(req: Request, res: Response, next) {
     }
 }
 
+async function createCategory(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const body: PayloadRegisterCategory = req.body
+        if(body.tipo_de_categoria === "livro"){
+            await materialServices.registerBookCategory(body.nome)
+        } else if (body.tipo_de_categoria === "material"){
+            await materialServices.registerMaterialCategory(body.nome)
+        } else {
+            throw errors.invalidInputData('tipo_de_categoria',body.tipo_de_categoria, 'material or livro')
+        }
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -196,4 +217,5 @@ export default {
     deleteAuthor,
     insertBookAuthor,
     deleteBookAuthor,
+    createCategory,
 }

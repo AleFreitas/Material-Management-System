@@ -133,6 +133,34 @@ async function deleteBookAuthor(id: any, isbn: any) {
     await materialRepository.deleteBookAuthor(id, isbn)
 }
 
+async function registerMaterialCategory(name: string) {
+    const categoryExists = await materialRepository.findMaterialCategoryByName(name)
+    if(categoryExists.rowCount !== 0) throw errors.conflictError("this category name is in use")
+
+    await materialRepository.insertMaterialCategory(name)
+}
+
+async function deleteMaterialCategory(name: string) {
+    const categoryExists = await materialRepository.findMaterialCategoryByName(name)
+    if(categoryExists.rowCount === 0) throw errors.conflictError("this category name is not in use")
+
+    await materialRepository.deleteMaterialCategory(name)
+}
+
+async function registerBookCategory(name: string) {
+    const categoryExists = await materialRepository.findBookCategoryByName(name)
+    if(categoryExists.rowCount !== 0) throw errors.conflictError("this category name is in use")
+
+    await materialRepository.insertBookCategory(name)
+}
+
+async function deleteBookCategory(name: string) {
+    const categoryExists = await materialRepository.findBookCategoryByName(name)
+    if(categoryExists.rowCount === 0) throw errors.conflictError("this category name is in use")
+
+    await materialRepository.deleteBookCategory(name)
+}
+
 function updateData(newData: any, originalData: any): any {
     const updatedData = { ...newData };
 
@@ -149,6 +177,8 @@ export default {
     registerMaterial,
     registerAuthor,
     registerBookAuthor,
+    registerMaterialCategory,
+    registerBookCategory,
     updateBook,
     updateMaterial,
     updateAuthor,
@@ -156,4 +186,6 @@ export default {
     deleteMaterial,
     deleteAuthor,
     deleteBookAuthor,
+    deleteMaterialCategory,
+    deleteBookCategory,
 }
