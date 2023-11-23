@@ -33,4 +33,9 @@ const registerBookAuthorSchema = Joi.object({
     isbn: Joi.string().required(),
 });
 
-export{ registerBookSchema, registerMaterialSchema, registerAuthorSchema, registerBookAuthorSchema }
+const registerCategorySchema = Joi.object({
+    nome: Joi.string().required(),
+    tipo_de_categoria: Joi.string().required(),
+})
+
+export{ registerBookSchema, registerMaterialSchema, registerAuthorSchema, registerBookAuthorSchema, registerCategorySchema }

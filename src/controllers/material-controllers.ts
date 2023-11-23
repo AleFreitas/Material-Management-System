@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
 import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
 import sessionRepository from "../repositories/session-repository.js";
@@ -184,6 +184,40 @@ async function deleteBookAuthor(req: Request, res: Response, next) {
     }
 }
 
+async function createBookCategory(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const {name} = req.params
+        if(name === undefined) throw errors.invalidInputData('name url param', 'nothing', 'a name')
+        await materialServices.registerBookCategory(name)
+        
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function createMaterialCategory(req: Request, res: Response, next) {
+    try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+
+        const {name, material_id} = req.params
+        if(name === undefined || material_id === undefined) throw errors.invalidInputData('url param', 'missing param', 'a param')
+        await materialServices.registerMaterialCategory(name, material_id)
+        
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createBook,
     updateBook,
@@ -196,4 +230,6 @@ export default {
     deleteAuthor,
     insertBookAuthor,
     deleteBookAuthor,
+    createBookCategory,
+    createMaterialCategory,
 }
