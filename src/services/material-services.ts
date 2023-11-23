@@ -133,13 +133,11 @@ async function deleteBookAuthor(id: any, isbn: any) {
     await materialRepository.deleteBookAuthor(id, isbn)
 }
 
-async function registerMaterialCategory(name: string, id: any) {
-    const categoryExists = await materialRepository.findMaterialCategoryByNameAndMaterialId(name, id)
-    if(categoryExists.rowCount !== 0) throw errors.conflictError("this material already has this category name")
-    const materialExists = await materialRepository.findMaterialById(id)
-    if(materialExists.rowCount === 0) throw errors.conflictError("this material does not exist")
+async function registerMaterialCategory(name: string) {
+    const categoryExists = await materialRepository.findMaterialCategoryByName(name)
+    if(categoryExists.rowCount !== 0) throw errors.conflictError("this category name is in use")
 
-    await materialRepository.insertMaterialCategory(name, id)
+    await materialRepository.insertMaterialCategory(name)
 }
 
 async function deleteMaterialCategory(name: string) {

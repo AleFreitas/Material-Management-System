@@ -20,7 +20,6 @@ materialRouter.delete("/author/:id", materialControllers.deleteAuthor)
 materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), materialControllers.insertBookAuthor)
 materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
 
-materialRouter.post("/category-book/:name", materialControllers.createBookCategory)
-materialRouter.post("/category-material/:name/:material_id", materialControllers.createMaterialCategory)
+materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
 
 export default materialRouter;

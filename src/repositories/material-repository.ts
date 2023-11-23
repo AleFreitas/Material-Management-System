@@ -44,13 +44,6 @@ async function findMaterialCategoryByName(name:string): Promise<QueryResult> {
     `,[name])
 }
 
-async function findMaterialCategoryByNameAndMaterialId(name: string, id: any): Promise<QueryResult> {
-    return pool.query(`
-        SELECT * FROM categoria_material
-        WHERE nome = $1 AND id_material_didatico = $2
-    `,[name, id])
-}
-
 async function findBookCategoryByName(name:string): Promise<QueryResult> {
     return pool.query(`
         SELECT * FROM categoria_livro
@@ -115,11 +108,11 @@ async function insertBookAuthor(id: any, isbn: any): Promise<QueryResult> {
     `, [id, isbn])
 }
 
-async function insertMaterialCategory(name: string, id: any): Promise<QueryResult> {
+async function insertMaterialCategory(name: string): Promise<QueryResult> {
     return pool.query(`
-        INSERT INTO categoria_material (nome, id_material_didatico)
-        VALUES ($1, $2);
-    `, [name, id])
+        INSERT INTO categoria_material (nome)
+        VALUES ($1);
+    `, [name])
 }
 
 async function insertBookCategory(name: string): Promise<QueryResult> {
@@ -227,7 +220,6 @@ export default {
     findBookCategoryByName,
     findMaterialCategoryById,
     findBookCategoryById,
-    findMaterialCategoryByNameAndMaterialId,
     updateBook,
     updateMaterial,
     updateAuthor,

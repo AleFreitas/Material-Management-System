@@ -184,33 +184,20 @@ async function deleteBookAuthor(req: Request, res: Response, next) {
     }
 }
 
-async function createBookCategory(req: Request, res: Response, next) {
+async function createCategory(req: Request, res: Response, next) {
     try {
         //auth
         const usuario = await authUtils.authenticateUser(req)
         if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
 
-        const {name} = req.params
-        if(name === undefined) throw errors.invalidInputData('name url param', 'nothing', 'a name')
-        await materialServices.registerBookCategory(name)
-        
-        res.sendStatus(httpStatus.CREATED)
-    } catch (err) {
-        console.log(err)
-        return next(err);
-    }
-}
-
-async function createMaterialCategory(req: Request, res: Response, next) {
-    try {
-        //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
-
-        const {name, material_id} = req.params
-        if(name === undefined || material_id === undefined) throw errors.invalidInputData('url param', 'missing param', 'a param')
-        await materialServices.registerMaterialCategory(name, material_id)
-        
+        const body: PayloadRegisterCategory = req.body
+        if(body.tipo_de_categoria === "livro"){
+            await materialServices.registerBookCategory(body.nome)
+        } else if (body.tipo_de_categoria === "material"){
+            await materialServices.registerMaterialCategory(body.nome)
+        } else {
+            throw errors.invalidInputData('tipo_de_categoria',body.tipo_de_categoria, 'material or livro')
+        }
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
@@ -230,6 +217,5 @@ export default {
     deleteAuthor,
     insertBookAuthor,
     deleteBookAuthor,
-    createBookCategory,
-    createMaterialCategory,
+    createCategory,
 }

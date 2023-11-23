@@ -99,7 +99,6 @@ BEGIN
             CREATE TABLE IF NOT EXISTS public.categoria_material
 			(
 				id serial NOT NULL PRIMARY KEY,
-				id_material_didatico bigint NOT NULL REFERENCES material_didatico(id),
 				nome character varying NOT NULL				
 			);
             
