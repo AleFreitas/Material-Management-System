@@ -201,3 +201,15 @@
    ```
     VAZIO
    ```
+
+17. **Criar Categoria**
+   - **Método:** POST
+   - **Endpoint:** `/category`
+   - **Nivel de Acesso** `chefe de laboratório ou administrador`
+   - **Corpo da Requisição:**
+   ```json
+    {
+      "nome": "string",
+      "tipo_de_categoria": "string ('livro' or 'material')"
+    }
+   ```
