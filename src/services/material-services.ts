@@ -172,7 +172,31 @@ function updateData(newData: any, originalData: any): any {
     return updatedData;
 }
 
+async function getAllBooks() {
+    const books = await materialRepository.findAllBooks()
+    return books.rows
+}
+
+async function getAllMaterials() {
+    const materials = await materialRepository.findAllMaterials()
+    return materials.rows
+}
+
+async function getBookByIsbn(isbn: string) {
+    const book = await materialRepository.findBookByISBN(isbn)
+    return book.rows[0]
+}
+
+async function getMaterialById(id: any) {
+    const material = await materialRepository.findMaterialById(id)
+    return material.rows[0]
+}
+
 export default {
+    getAllBooks,
+    getAllMaterials,
+    getBookByIsbn,
+    getMaterialById,
     registerBook,
     registerMaterial,
     registerAuthor,
@@ -188,4 +212,5 @@ export default {
     deleteBookAuthor,
     deleteMaterialCategory,
     deleteBookCategory,
+
 }
