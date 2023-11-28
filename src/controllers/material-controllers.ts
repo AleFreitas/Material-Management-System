@@ -205,7 +205,7 @@ async function createCategory(req: Request, res: Response, next) {
     }
 }
 
-async function getAllBooks(req: Request, res: Response, next) {
+async function getAllBooks(res: Response, next) {
     try {
         const books = await materialServices.getAllBooks()
         res.status(httpStatus.OK).send(books)
@@ -226,7 +226,7 @@ async function getBookByIsbn(req: Request, res: Response, next) {
     }
 }
 
-async function getAllMaterials(req: Request, res: Response, next) {
+async function getAllMaterials(res: Response, next) {
     try {
         const materials = await materialServices.getAllMaterials()
         res.status(httpStatus.OK).send(materials)
