@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
-import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
-import sessionRepository from "../repositories/session-repository.js";
-import userRepository from "../repositories/user-repository.js";
+import materialServices from "../services/material-services.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
 import authUtils from "../utils/auth-utils.js";
 
 async function createBook(req: Request, res: Response, next) {
