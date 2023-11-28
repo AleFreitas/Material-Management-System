@@ -205,17 +205,65 @@ async function createCategory(req: Request, res: Response, next) {
     }
 }
 
+async function getAllBooks(req: Request, res: Response, next) {
+    try {
+        const books = await materialServices.getAllBooks()
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getBookByIsbn(req: Request, res: Response, next) {
+    try {
+        const { isbn } = req.params
+        const book = await materialServices.getBookByIsbn(isbn)
+        res.status(httpStatus.OK).send(book)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getAllMaterials(req: Request, res: Response, next) {
+    try {
+        const materials = await materialServices.getAllMaterials()
+        res.status(httpStatus.OK).send(materials)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getMaterialById(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const book = await materialServices.getMaterialById(id)
+        res.status(httpStatus.OK).send(book)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+
+
 export default {
-    createBook,
-    updateBook,
-    deleteBook,
-    createMaterial,
-    updateMaterial,
-    deleteMaterial,
     createAuthor,
-    updateAuthor,
-    deleteAuthor,
-    insertBookAuthor,
-    deleteBookAuthor,
+    createBook,
     createCategory,
+    createMaterial,
+    deleteAuthor,
+    deleteBook,
+    deleteBookAuthor,
+    deleteMaterial,
+    getAllBooks,
+    getAllMaterials,
+    getBookByIsbn,
+    getMaterialById,
+    insertBookAuthor,
+    updateBook,
+    updateMaterial,
+    updateAuthor
 }
