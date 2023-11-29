@@ -224,22 +224,23 @@ async function findBooksByAuthor(authorId: any): Promise<QueryResult> {
     `, [authorId])
 }
 
-async function findBooksByCategory(categoryId: any): Promise<QueryResult> {
-    return pool.query(`
-        SELECT * FROM livro
-        WHERE isbn IN (
-            SELECT isbn FROM livro_categoria
-            WHERE id_categoria_livro = $1
-        )
-    `, [categoryId])
-}
-
 async function findMaterialsByCategory(categoryId: any): Promise<QueryResult> {
     return pool.query(`
         SELECT * FROM material_didatico
         WHERE id_categoria_material = $1
     `, [categoryId])
 }
+
+async function findBooksByCategory(categoryId: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+        WHERE isbn IN (
+            SELECT isbn FROM relacao_categoria_livro
+            WHERE id_categoria_livro = $1
+        )
+    `, [categoryId])
+}
+
 
 async function findUserById(id: any): Promise<QueryResult> {
     return pool.query(`

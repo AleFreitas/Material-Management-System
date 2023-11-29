@@ -9,9 +9,9 @@ const authRouter = Router()
 authRouter.post("/sign-up", validateSchema(userSignUpSchema), userControllers.createUser)
 authRouter.post("/sign-in", validateSchema(userSignInSchema), userControllers.loginUser)
 
-authRouter.get("user/:id", userControllers.getUserInfo)
-authRouter.get("user/:id/loan", userControllers.getUserLoans)
-authRouter.get("user/:id/book", userControllers.getUserBooks)
-authRouter.get("user/:id/material", userControllers.getUserMaterials)
+authRouter.get("/user/:id", userControllers.getUserInfo)
+authRouter.get("/user/:id/loan", userControllers.getUserLoans)
+authRouter.get("/user/:id/book", userControllers.getUserBooks)
+authRouter.get("/user/:id/material", userControllers.getUserMaterials)
 
 export default authRouter;
