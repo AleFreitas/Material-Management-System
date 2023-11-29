@@ -279,50 +279,6 @@ async function getMaterialsByCategory(req: Request, res: Response, next) {
     }
 }
 
-async function getUserInfo(req: Request, res: Response, next) {
-    try {
-        const { id } = req.params
-        const user = await materialServices.getUserInfo(id)
-        res.status(httpStatus.OK).send(user)
-    } catch (err) {
-        console.log(err)
-        return next(err);
-    }
-}
-
-async function getUserLoans(req: Request, res: Response, next) {
-    try {
-        const { id } = req.params
-        const user = await materialServices.getUserLoans(id)
-        res.status(httpStatus.OK).send(user)
-    } catch (err) {
-        console.log(err)
-        return next(err);
-    }
-}
-
-async function getUserBooks(req: Request, res: Response, next) {
-    try {
-        const { id } = req.params
-        const user = await materialServices.getUserBooks(id)
-        res.status(httpStatus.OK).send(user)
-    } catch (err) {
-        console.log(err)
-        return next(err);
-    }
-}
-
-async function getUserMaterials(req: Request, res: Response, next) {
-    try {
-        const { id } = req.params
-        const user = await materialServices.getUserMaterials(id)
-        res.status(httpStatus.OK).send(user)
-    } catch (err) {
-        console.log(err)
-        return next(err);
-    }
-}
-
 async function getAllAuthors(res: Response, next) {
     try {
         const authors = await materialServices.getAllAuthors()
@@ -373,10 +329,6 @@ export default {
     getBooksByAuthor,
     getBooksByCategory,
     getMaterialsByCategory,
-    getUserInfo,
-    getUserLoans,
-    getUserBooks,
-    getUserMaterials,
     getAllAuthors,
     getAllBookCategories,
     getAllMaterialCategories

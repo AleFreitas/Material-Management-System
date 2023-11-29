@@ -208,26 +208,6 @@ async function getMaterialsByCategory(categoryId: string) {
     return materials.rows
 }
 
-async function getUserInfo(userId: string) {
-    const user = await materialRepository.findUserById(userId)
-    return user.rows[0]
-}
-
-async function getUserLoans(userId: string) {
-    const loans = await materialRepository.findUserLoans(userId)
-    return loans.rows
-}
-
-async function getUserBooks(userId: string) {
-    const books = await materialRepository.findUserBooks(userId)
-    return books.rows
-}
-
-async function getUserMaterials(userId: string) {
-    const materials = await materialRepository.findUserMaterials(userId)
-    return materials.rows
-}
-
 async function getAllAuthors() {
     const authors = await materialRepository.findAllAuthors()
     return authors.rows
@@ -266,10 +246,6 @@ export default {
     getBooksByAuthor,
     getBooksByCategory,
     getMaterialsByCategory,
-    getUserInfo,
-    getUserLoans,
-    getUserBooks,
-    getUserMaterials,
     getAllAuthors,
     getAllBookCategories,
     getAllMaterialCategories
