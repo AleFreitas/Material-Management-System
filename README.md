@@ -132,6 +132,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         }
         ```
       - Retorno Esperado: Confirmação de atualização com detalhes do material atualizado.
+
    c. Excluir Material
       - Método: DELETE
       - Endpoint: /material/:id
@@ -285,6 +286,13 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: chefe de laboratório ou administrador
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Confirmação da exclusão do autor.
+   
+   d. Resgatar todos os Autores
+      - Método: GET
+      - Endpoint: /author
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
         
 6. Relacionamentos e Categorias
    
@@ -320,7 +328,21 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         }
         ```
       - Retorno Esperado: Confirmação de criação com detalhes da categoria adicionada.
-
+   
+   d. Resgatar todas as Categorias de livros
+      - Método: GET
+      - Endpoint: /category/book
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todas as categorias de livros cadastradas.
+   
+   e. Resgatar todas as Categorias de materiais
+      - Método: GET
+      - Endpoint: /category/material
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
+   
 7. Consultas
    
    a. Resgatar todos os livros cadastrados
@@ -336,4 +358,25 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todos os materiais cadastrados com seus respectivos detalhes.
+
+   c. Resgatar todas as Categorias de livros cadastradas
+      - Método: GET
+      - Endpoint: /category/book
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todas as categorias de livros cadastradas.
+   
+   d. Resgatar todas as Categorias de materiais cadastradas
+      - Método: GET
+      - Endpoint: /category/material
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
+   
+   d. Resgatar todos os Autores cadastrados
+      - Método: GET
+      - Endpoint: /author
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
 
