@@ -228,6 +228,21 @@ async function getUserMaterials(userId: string) {
     return materials.rows
 }
 
+async function getAllAuthors() {
+    const authors = await materialRepository.findAllAuthors()
+    return authors.rows
+}
+
+async function getAllBookCategories() {
+    const categories = await materialRepository.findAllBookCategories()
+    return categories.rows
+}
+
+async function getAllMaterialCategories() {
+    const categories = await materialRepository.findAllMaterialCategories()
+    return categories.rows
+}
+
 export default {
     getAllBooks,
     getAllMaterials,
@@ -254,6 +269,8 @@ export default {
     getUserInfo,
     getUserLoans,
     getUserBooks,
-    getUserMaterials
-
+    getUserMaterials,
+    getAllAuthors,
+    getAllBookCategories,
+    getAllMaterialCategories
 }

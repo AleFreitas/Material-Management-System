@@ -323,6 +323,36 @@ async function getUserMaterials(req: Request, res: Response, next) {
     }
 }
 
+async function getAllAuthors(res: Response, next) {
+    try {
+        const authors = await materialServices.getAllAuthors()
+        res.status(httpStatus.OK).send(authors)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getAllBookCategories(res: Response, next) {
+    try {
+        const categories = await materialServices.getAllBookCategories()
+        res.status(httpStatus.OK).send(categories)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getAllMaterialCategories(res: Response, next) {
+    try {
+        const categories = await materialServices.getAllMaterialCategories()
+        res.status(httpStatus.OK).send(categories)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createAuthor,
     createBook,
@@ -346,5 +376,8 @@ export default {
     getUserInfo,
     getUserLoans,
     getUserBooks,
-    getUserMaterials
+    getUserMaterials,
+    getAllAuthors,
+    getAllBookCategories,
+    getAllMaterialCategories
 }

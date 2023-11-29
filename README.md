@@ -192,6 +192,34 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
            "token": "string (token de autenticação)"
         }
         ```
+   
+   c. Resgatar informações de Usuário
+      - Método: GET
+      - Endpoint: /user/:id
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Detalhes do usuário correspondente ao ID fornecido.
+   
+   d. Resgatar Empréstimos do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/loan
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos do usuário correspondente ao ID fornecido.
+   
+   e. Resgatar Livros do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/book
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os livros emprestados pelo usuário correspondente ao ID fornecido.
+   
+   f. Resgatar Materiais do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/material
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os materiais emprestados pelo usuário correspondente ao ID fornecido.
         
 4. Empréstimos
    

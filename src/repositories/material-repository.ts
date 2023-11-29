@@ -275,6 +275,24 @@ async function findUserMaterials(id: any): Promise<QueryResult> {
     `, [id])
 }
 
+async function findAllAuthors(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM autor
+    `)
+}
+
+async function findAllBookCategories(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM categoria_livro
+    `)
+}
+
+async function findAllMaterialCategories(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM categoria_material
+    `)
+}
+
 export default {
     insertBook,
     insertBookItem,
@@ -312,6 +330,8 @@ export default {
     findUserById,
     findUserLoans,
     findUserBooks,
-    findUserMaterials
-
+    findUserMaterials,
+    findAllAuthors,
+    findAllBookCategories,
+    findAllMaterialCategories
 }
