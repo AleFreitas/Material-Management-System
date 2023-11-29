@@ -30,7 +30,31 @@ async function validatePasswordOrFail(password: string, userPassword: string) {
     if (!isPasswordValid) throw errors.invalidCredentialsError();
 }
 
+async function getUserInfo(userId: string) {
+    const user = await userRepository.findUserById(userId)
+    return user.rows[0]
+}
+
+async function getUserLoans(userId: string) {
+    const loans = await userRepository.findUserLoans(userId)
+    return loans.rows
+}
+
+async function getUserBooks(userId: string) {
+    const books = await userRepository.findUserBooks(userId)
+    return books.rows
+}
+
+async function getUserMaterials(userId: string) {
+    const materials = await userRepository.findUserMaterials(userId)
+    return materials.rows
+}
+
 export default {
     registerUser,
-    loginUser
+    loginUser,
+    getUserInfo,
+    getUserLoans,
+    getUserBooks,
+    getUserMaterials    
 }

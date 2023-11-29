@@ -25,7 +25,55 @@ async function loginUser(req: Request, res: Response, next) {
     }
 }
 
+async function getUserInfo(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await userServices.getUserInfo(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserLoans(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await userServices.getUserLoans(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserBooks(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await userServices.getUserBooks(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserMaterials(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await userServices.getUserMaterials(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createUser,
-    loginUser
+    loginUser,
+    getUserInfo,
+    getUserLoans,
+    getUserBooks,
+    getUserMaterials
 }

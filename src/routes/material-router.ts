@@ -33,9 +33,4 @@ materialRouter.post("/category", validateSchema(registerCategorySchema), materia
 materialRouter.get("/category/book", materialControllers.getAllBookCategories)
 materialRouter.get("/category/material", materialControllers.getAllMaterialCategories)
 
-materialRouter.get("user/:id", materialControllers.getUserInfo)
-materialRouter.get("user/:id/loan", materialControllers.getUserLoans)
-materialRouter.get("user/:id/book", materialControllers.getUserBooks)
-materialRouter.get("user/:id/material", materialControllers.getUserMaterials)
-
 export default materialRouter;
