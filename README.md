@@ -1,7 +1,9 @@
 # Sistema de Gerenciamento de Biblioteca - API
+
 Este projeto, parte da disciplina de Banco de Dados da Universidade de Brasília (UnB), consiste em uma API para gerenciamento de bibliotecas focada em simplificar operações de cadastro, empréstimo e gestão de livros e materiais.
 
 ## Funcionalidades
+
 A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essenciais, incluindo:
 
 - Gerenciamento de Livros: Permite criar, atualizar, excluir e consultar livros no acervo da biblioteca.
@@ -159,6 +161,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
 
 
 3. Usuários
+
    a. Criar Usuário
       - Método: POST
       - Endpoint: /sign-up
@@ -379,4 +382,34 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
+   
+**OBS_1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
+**OBS_2:** Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
 
+
+## Tecnologias Utilizadas
+
+- Typescript
+- Node.js
+- Express
+- PostgreSQL
+
+## Como Executar
+
+1. Clone o repositório
+2. Instale as dependências com `npm install`
+3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
+
+   ```
+   DB_HOST = endereço do banco de dados
+   DB_USER = usuário do banco de dados
+   DB_PASSWORD = senha do banco de dados
+   DB_DATABASE = nome do banco de dados
+   JWT_KEY = chave de autenticação
+   ```
+4. Execute o comando `npm run dev` para iniciar o servidor
+5. Acesse o servidor em `localhost:5005`
+
+## Observações
+
+Para acessar versões já implantadas da API ou para tirar qualquer dúvida entre em contato com os desenvolvedores.
