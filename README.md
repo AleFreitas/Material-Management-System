@@ -80,6 +80,18 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: todos
       - Retorno Esperado: Detalhes do livro correspondente ao ISBN fornecido.
 
+   f. Resgatar Livros por Autor
+      - Método: GET
+      - Endpoint: /book/author/:authorId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os livros escritos pelo autor.
+
+   g. Resgatar Livros por Categoria
+      - Método: GET
+      - Endpoint: /book/category/:categoryId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os livros de certa categoria.
+
 2. Materiais
    
    a. Criar Material
@@ -137,6 +149,13 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Endpoint: /material/:id
       - Nível de Acesso: todos
       - Retorno Esperado: Detalhes do material correspondente ao ID fornecido.
+        
+   g. Resgatar Materiais por Categoria
+      - Método: GET
+      - Endpoint: /material/category/:categoryId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os materiais de certa categoria.
+
 
 3. Usuários
    a. Criar Usuário
