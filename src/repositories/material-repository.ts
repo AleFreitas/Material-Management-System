@@ -214,6 +214,66 @@ async function findAllMaterials(): Promise<QueryResult> {
     `)
 }
 
+async function findBooksByAuthor(authorId: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+        WHERE isbn IN (
+            SELECT isbn FROM autor_livro
+            WHERE id_autor = $1
+        )
+    `, [authorId])
+}
+
+async function findBooksByCategory(categoryId: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+        WHERE isbn IN (
+            SELECT isbn FROM livro_categoria
+            WHERE id_categoria_livro = $1
+        )
+    `, [categoryId])
+}
+
+async function findMaterialsByCategory(categoryId: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM material_didatico
+        WHERE id_categoria_material = $1
+    `, [categoryId])
+}
+
+async function findUserById(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM usuario
+        WHERE id = $1
+    `, [id])
+}
+
+async function findUserLoans(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM emprestimo
+        WHERE id_usuario = $1
+    `, [id])
+}
+
+async function findUserBooks(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+        WHERE isbn IN (
+            SELECT isbn FROM emprestimo
+            WHERE id_usuario = $1
+        )
+    `, [id])
+}
+
+async function findUserMaterials(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM material_didatico
+        WHERE id IN (
+            SELECT id_material FROM emprestimo
+            WHERE id_usuario = $1
+        )
+    `, [id])
+}
 
 export default {
     insertBook,
@@ -246,5 +306,12 @@ export default {
     deleteBookAuthor,
     deleteMaterialCategory,
     deleteBookCategory,
+    findBooksByAuthor,
+    findBooksByCategory,
+    findMaterialsByCategory,
+    findUserById,
+    findUserLoans,
+    findUserBooks,
+    findUserMaterials
 
 }

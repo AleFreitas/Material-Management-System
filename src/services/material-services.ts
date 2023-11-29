@@ -161,6 +161,7 @@ async function deleteBookCategory(name: string) {
     await materialRepository.deleteBookCategory(name)
 }
 
+
 function updateData(newData: any, originalData: any): any {
     const updatedData = { ...newData };
 
@@ -192,6 +193,41 @@ async function getMaterialById(id: any) {
     return material.rows[0]
 }
 
+async function getBooksByAuthor(authorId: string) {
+    const books = await materialRepository.findBooksByAuthor(authorId)
+    return books.rows
+}
+
+async function getBooksByCategory(categoryId: string) {
+    const books = await materialRepository.findBooksByCategory(categoryId)
+    return books.rows
+}
+
+async function getMaterialsByCategory(categoryId: string) {
+    const materials = await materialRepository.findMaterialsByCategory(categoryId)
+    return materials.rows
+}
+
+async function getUserInfo(userId: string) {
+    const user = await materialRepository.findUserById(userId)
+    return user.rows[0]
+}
+
+async function getUserLoans(userId: string) {
+    const loans = await materialRepository.findUserLoans(userId)
+    return loans.rows
+}
+
+async function getUserBooks(userId: string) {
+    const books = await materialRepository.findUserBooks(userId)
+    return books.rows
+}
+
+async function getUserMaterials(userId: string) {
+    const materials = await materialRepository.findUserMaterials(userId)
+    return materials.rows
+}
+
 export default {
     getAllBooks,
     getAllMaterials,
@@ -212,5 +248,12 @@ export default {
     deleteBookAuthor,
     deleteMaterialCategory,
     deleteBookCategory,
+    getBooksByAuthor,
+    getBooksByCategory,
+    getMaterialsByCategory,
+    getUserInfo,
+    getUserLoans,
+    getUserBooks,
+    getUserMaterials
 
 }

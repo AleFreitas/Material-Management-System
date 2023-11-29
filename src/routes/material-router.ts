@@ -16,7 +16,7 @@ materialRouter.delete("/book/:isbn", materialControllers.deleteBook)
 
 materialRouter.get("/material", materialControllers.getAllMaterials);
 materialRouter.get("/material/:id", materialControllers.getMaterialById);
-materialRouter.get("/material/category/:categoryId", materialControllers.getMaterialsByCathegory)
+materialRouter.get("/material/category/:categoryId", materialControllers.getMaterialsByCategory)
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 materialRouter.put("/material/:id", materialControllers.updateMaterial)
 materialRouter.delete("/material/:id", materialControllers.deleteMaterial)
@@ -33,6 +33,6 @@ materialRouter.post("/category", validateSchema(registerCategorySchema), materia
 materialRouter.get("user/:id", materialControllers.getUserInfo)
 materialRouter.get("user/:id/loans", materialControllers.getUserLoans)
 materialRouter.get("user/:id/books", materialControllers.getUserBooks)
-materialRouter.get("user/:id/materials", materialControllers.getUserBooks)
+materialRouter.get("user/:id/materials", materialControllers.getUserMaterials)
 
 export default materialRouter;

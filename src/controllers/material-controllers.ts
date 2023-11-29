@@ -224,6 +224,17 @@ async function getBookByIsbn(req: Request, res: Response, next) {
     }
 }
 
+async function getBooksByAuthor(req: Request, res: Response, next) {
+    try {
+        const { authorId } = req.params
+        const books = await materialServices.getBooksByAuthor(authorId)
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 async function getAllMaterials(res: Response, next) {
     try {
         const materials = await materialServices.getAllMaterials()
@@ -246,6 +257,71 @@ async function getMaterialById(req: Request, res: Response, next) {
 }
 
 
+async function getBooksByCategory(req: Request, res: Response, next) {
+    try {
+        const { categoryId } = req.params
+        const books = await materialServices.getBooksByCategory(categoryId)
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getMaterialsByCategory(req: Request, res: Response, next) {
+    try {
+        const { categoryId } = req.params
+        const materials = await materialServices.getMaterialsByCategory(categoryId)
+        res.status(httpStatus.OK).send(materials)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserInfo(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await materialServices.getUserInfo(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserLoans(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await materialServices.getUserLoans(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserBooks(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await materialServices.getUserBooks(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getUserMaterials(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const user = await materialServices.getUserMaterials(id)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
 
 export default {
     createAuthor,
@@ -263,5 +339,12 @@ export default {
     insertBookAuthor,
     updateBook,
     updateMaterial,
-    updateAuthor
+    updateAuthor,
+    getBooksByAuthor,
+    getBooksByCategory,
+    getMaterialsByCategory,
+    getUserInfo,
+    getUserLoans,
+    getUserBooks,
+    getUserMaterials
 }
