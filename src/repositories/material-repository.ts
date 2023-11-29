@@ -202,6 +202,19 @@ async function deleteBookCategory(name: string) {
     `, [name])
 }
 
+async function findAllBooks(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+    `)
+}
+
+async function findAllMaterials(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM material_didatico
+    `)
+}
+
+
 export default {
     insertBook,
     insertBookItem,
@@ -211,6 +224,8 @@ export default {
     insertBookAuthor,
     insertMaterialCategory,
     insertBookCategory,
+    findAllBooks,
+    findAllMaterials,
     findBookByISBN,
     findMaterialById,
     findAuthorByEmail,
@@ -231,4 +246,5 @@ export default {
     deleteBookAuthor,
     deleteMaterialCategory,
     deleteBookCategory,
+
 }

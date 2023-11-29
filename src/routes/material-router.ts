@@ -5,10 +5,14 @@ import materialControllers from "../controllers/material-controllers.js";
 
 const materialRouter = Router()
 
+materialRouter.get("/book", materialControllers.getAllBooks);
+materialRouter.get("/book/:isbn", materialControllers.getBookByIsbn);
 materialRouter.post("/book", validateSchema(registerBookSchema), materialControllers.createBook)
 materialRouter.put("/book/:isbn", materialControllers.updateBook)
 materialRouter.delete("/book/:isbn", materialControllers.deleteBook)
 
+materialRouter.get("/material", materialControllers.getAllMaterials);
+materialRouter.get("/material/:id", materialControllers.getMaterialById);
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 materialRouter.put("/material/:id", materialControllers.updateMaterial)
 materialRouter.delete("/material/:id", materialControllers.deleteMaterial)

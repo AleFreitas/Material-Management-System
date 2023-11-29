@@ -1,10 +1,8 @@
 import { Request, Response } from "express";
 import httpStatus from 'http-status';
-import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
-import materialServices from "../services/material-services.js";
 import errors from "../errors/index.js";
-import sessionRepository from "../repositories/session-repository.js";
-import userRepository from "../repositories/user-repository.js";
+import materialServices from "../services/material-services.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
 import authUtils from "../utils/auth-utils.js";
 
 async function createBook(req: Request, res: Response, next) {
@@ -205,17 +203,65 @@ async function createCategory(req: Request, res: Response, next) {
     }
 }
 
+async function getAllBooks(res: Response, next) {
+    try {
+        const books = await materialServices.getAllBooks()
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getBookByIsbn(req: Request, res: Response, next) {
+    try {
+        const { isbn } = req.params
+        const book = await materialServices.getBookByIsbn(isbn)
+        res.status(httpStatus.OK).send(book)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getAllMaterials(res: Response, next) {
+    try {
+        const materials = await materialServices.getAllMaterials()
+        res.status(httpStatus.OK).send(materials)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function getMaterialById(req: Request, res: Response, next) {
+    try {
+        const { id } = req.params
+        const book = await materialServices.getMaterialById(id)
+        res.status(httpStatus.OK).send(book)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+
+
 export default {
-    createBook,
-    updateBook,
-    deleteBook,
-    createMaterial,
-    updateMaterial,
-    deleteMaterial,
     createAuthor,
-    updateAuthor,
-    deleteAuthor,
-    insertBookAuthor,
-    deleteBookAuthor,
+    createBook,
     createCategory,
+    createMaterial,
+    deleteAuthor,
+    deleteBook,
+    deleteBookAuthor,
+    deleteMaterial,
+    getAllBooks,
+    getAllMaterials,
+    getBookByIsbn,
+    getMaterialById,
+    insertBookAuthor,
+    updateBook,
+    updateMaterial,
+    updateAuthor
 }
