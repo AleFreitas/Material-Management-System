@@ -268,6 +268,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Retorno Esperado: Confirmação de criação com detalhes da categoria adicionada.
 
 7. Consultas
+   
    a. Resgatar todos os livros cadastrados
       - Método: GET
       - Endpoint: /book
