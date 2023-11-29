@@ -32,15 +32,23 @@ async function findUserLoans(userId: string): Promise<QueryResult> {
 
 async function findUserBooks(userId: string): Promise<QueryResult> {
     return pool.query(`
-        SELECT * FROM livro
-        WHERE id_usuario=$1;         
+        SELECT l.isbn, l.descricao, l.titulo, l.url_capa
+        FROM usuario u
+        INNER JOIN emprestimo e ON u.id = e.id_usuario
+        INNER JOIN item i ON e.id_item = i.id
+        INNER JOIN livro l ON i.isbn = l.isbn
+        WHERE u.id = $1;         
     `, [userId]);
 }
 
 async function findUserMaterials(userId: string): Promise<QueryResult> {
     return pool.query(`
-        SELECT * FROM material
-        WHERE id_usuario=$1;         
+        SELECT m.serial, m."desc", m.url_imagem
+        FROM usuario u
+        INNER JOIN emprestimo e ON u.id = e.id_usuario
+        INNER JOIN item i ON e.id_item = i.id
+        INNER JOIN material_didatico m ON i.id_material = m.id
+        WHERE u.id = $1;
     `, [userId]);
 }
 
