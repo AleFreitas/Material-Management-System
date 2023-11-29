@@ -24,6 +24,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
 ## ROTAS DA API
 
 1. Livros
+   
    a. Criar Livro
       - Método: POST
       - Endpoint: /book
@@ -80,6 +81,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Retorno Esperado: Detalhes do livro correspondente ao ISBN fornecido.
 
 2. Materiais
+   
    a. Criar Material
       - Método: POST
       - Endpoint: /material
@@ -171,7 +173,9 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
            "token": "string (token de autenticação)"
         }
         ```
+        
 4. Empréstimos
+   
    a. Solicitar Empréstimo
       - Método: POST
       - Endpoint: /loan/:itemId
@@ -199,6 +203,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Retorno Esperado: Confirmação da renovação do empréstimo com nova data de devolução.
 
 5. Autores
+   
    a. Cadastrar Autor
       - Método: POST
       - Endpoint: /author
@@ -233,7 +238,9 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: chefe de laboratório ou administrador
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Confirmação da exclusão do autor.
+        
 6. Relacionamentos e Categorias
+   
    a. Criar relacionamento Autor-Livro
       - Método: POST
       - Endpoint: /book-author
