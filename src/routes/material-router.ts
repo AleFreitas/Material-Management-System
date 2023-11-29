@@ -7,12 +7,16 @@ const materialRouter = Router()
 
 materialRouter.get("/book", materialControllers.getAllBooks);
 materialRouter.get("/book/:isbn", materialControllers.getBookByIsbn);
+materialRouter.get("/book/author/:authorId", materialControllers.getBooksByAuthor) 
+materialRouter.get("/book/category/:categoryId", materialControllers.getBooksByCategory)
 materialRouter.post("/book", validateSchema(registerBookSchema), materialControllers.createBook)
 materialRouter.put("/book/:isbn", materialControllers.updateBook)
 materialRouter.delete("/book/:isbn", materialControllers.deleteBook)
 
+
 materialRouter.get("/material", materialControllers.getAllMaterials);
 materialRouter.get("/material/:id", materialControllers.getMaterialById);
+materialRouter.get("/material/category/:categoryId", materialControllers.getMaterialsByCathegory)
 materialRouter.post("/material", validateSchema(registerMaterialSchema), materialControllers.createMaterial)
 materialRouter.put("/material/:id", materialControllers.updateMaterial)
 materialRouter.delete("/material/:id", materialControllers.deleteMaterial)
@@ -25,5 +29,10 @@ materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), ma
 materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
 
 materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
+
+materialRouter.get("user/:id", materialControllers.getUserInfo)
+materialRouter.get("user/:id/loans", materialControllers.getUserLoans)
+materialRouter.get("user/:id/books", materialControllers.getUserBooks)
+materialRouter.get("user/:id/materials", materialControllers.getUserBooks)
 
 export default materialRouter;
