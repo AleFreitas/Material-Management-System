@@ -383,8 +383,9 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
    
-**OBS_1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
-**OBS_2:** Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
+**OBS 1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
+
+**OBS 2:** Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
 
 
 ## Tecnologias Utilizadas
