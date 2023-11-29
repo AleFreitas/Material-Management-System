@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { validateSchema } from "../middlewares/validateSchema.js";
 import loanControllers from "../controllers/loan-controllers.js";
-import { renewLoanSchema } from "../schemas/laon-schemas.js";
+import { renewLoanSchema } from "../schemas/loan-schemas.js";
 
 const loanRouter = Router()
 
