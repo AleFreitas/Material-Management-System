@@ -278,7 +278,7 @@ async function getMaterialsByCategory(req: Request, res: Response, next) {
     }
 }
 
-async function getAllAuthors(res: Response, next) {
+async function getAllAuthors(_req: Request, res: Response, next) {
     try {
         const authors = await materialServices.getAllAuthors()
         res.status(httpStatus.OK).send(authors)
@@ -288,7 +288,7 @@ async function getAllAuthors(res: Response, next) {
     }
 }
 
-async function getAllBookCategories(res: Response, next) {
+async function getAllBookCategories(_req: Request, res: Response, next) {
     try {
         const categories = await materialServices.getAllBookCategories()
         res.status(httpStatus.OK).send(categories)
@@ -298,7 +298,7 @@ async function getAllBookCategories(res: Response, next) {
     }
 }
 
-async function getAllMaterialCategories(res: Response, next) {
+async function getAllMaterialCategories(_req: Request, res: Response, next) {
     try {
         const categories = await materialServices.getAllMaterialCategories()
         res.status(httpStatus.OK).send(categories)
