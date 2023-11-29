@@ -46,8 +46,45 @@ async function renewLoan(req: Request, res: Response, next) {
     }
 }
 
+async function listLoans(req: Request, res: Response, next) {
+    try {
+        const usuario = await authUtils.authenticateUser(req)
+        const loans = await loanServices.listLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function listBookLoans(req: Request, res: Response, next) {
+    try {
+        
+        const usuario = await authUtils.authenticateUser(req)
+        const loans = await loanServices.listBookLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
+async function listMaterialLoans(req: Request, res: Response, next) {
+    try {
+        const usuario = await authUtils.authenticateUser(req)
+        const loans = await loanServices.listMaterialLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        return next(err);
+    }
+}
+
 export default {
     createLoan,
     completeLoan,
     renewLoan,
+    listLoans,
+    listBookLoans,
+    listMaterialLoans
 }

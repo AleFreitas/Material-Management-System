@@ -203,8 +203,11 @@ async function createCategory(req: Request, res: Response, next) {
     }
 }
 
-async function getAllBooks(_req: Request, res: Response) {
+async function getAllBooks(req: Request, res: Response) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const books = await materialServices.getAllBooks()
         res.status(httpStatus.OK).send(books)
     } catch (err) {
@@ -214,6 +217,9 @@ async function getAllBooks(_req: Request, res: Response) {
 
 async function getBookByIsbn(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const { isbn } = req.params
         const book = await materialServices.getBookByIsbn(isbn)
         res.status(httpStatus.OK).send(book)
@@ -225,6 +231,9 @@ async function getBookByIsbn(req: Request, res: Response, next) {
 
 async function getBooksByAuthor(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const { authorId } = req.params
         const books = await materialServices.getBooksByAuthor(authorId)
         res.status(httpStatus.OK).send(books)
@@ -234,8 +243,11 @@ async function getBooksByAuthor(req: Request, res: Response, next) {
     }
 }
 
-async function getAllMaterials(_req: Request, res: Response, next) {
+async function getAllMaterials(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const materials = await materialServices.getAllMaterials()
         res.status(httpStatus.OK).send(materials)
     } catch (err) {
@@ -246,6 +258,9 @@ async function getAllMaterials(_req: Request, res: Response, next) {
 
 async function getMaterialById(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const { id } = req.params
         const book = await materialServices.getMaterialById(id)
         res.status(httpStatus.OK).send(book)
@@ -258,6 +273,9 @@ async function getMaterialById(req: Request, res: Response, next) {
 
 async function getBooksByCategory(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const { categoryId } = req.params
         const books = await materialServices.getBooksByCategory(categoryId)
         res.status(httpStatus.OK).send(books)
@@ -269,6 +287,9 @@ async function getBooksByCategory(req: Request, res: Response, next) {
 
 async function getMaterialsByCategory(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const { categoryId } = req.params
         const materials = await materialServices.getMaterialsByCategory(categoryId)
         res.status(httpStatus.OK).send(materials)
@@ -278,8 +299,11 @@ async function getMaterialsByCategory(req: Request, res: Response, next) {
     }
 }
 
-async function getAllAuthors(_req: Request, res: Response, next) {
+async function getAllAuthors(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const authors = await materialServices.getAllAuthors()
         res.status(httpStatus.OK).send(authors)
     } catch (err) {
@@ -288,8 +312,11 @@ async function getAllAuthors(_req: Request, res: Response, next) {
     }
 }
 
-async function getAllBookCategories(_req: Request, res: Response, next) {
+async function getAllBookCategories(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const categories = await materialServices.getAllBookCategories()
         res.status(httpStatus.OK).send(categories)
     } catch (err) {
@@ -298,8 +325,11 @@ async function getAllBookCategories(_req: Request, res: Response, next) {
     }
 }
 
-async function getAllMaterialCategories(_req: Request, res: Response, next) {
+async function getAllMaterialCategories(req: Request, res: Response, next) {
     try {
+        //auth
+        const usuario = await authUtils.authenticateUser(req)
+        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
         const categories = await materialServices.getAllMaterialCategories()
         res.status(httpStatus.OK).send(categories)
     } catch (err) {
