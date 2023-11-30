@@ -253,6 +253,27 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         ```
       - Retorno Esperado: Confirmação da renovação do empréstimo com nova data de devolução.
 
+   d. Resgatar todos os Empréstimos
+      - Método: GET
+      - Endpoint: /loan
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos cadastrados com seus respectivos detalhes.
+   
+   e. Resgatar todos os Empréstimos de livros
+      - Método: GET
+      - Endpoint: /loan/book
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos de livros cadastrados com seus respectivos detalhes.
+
+   f. Resgatar todos os Empréstimos de materiais
+      - Método: GET
+      - Endpoint: /loan/material
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos de materiais cadastrados com seus respectivos detalhes.
+
 5. Autores
    
    a. Cadastrar Autor
