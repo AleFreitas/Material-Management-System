@@ -19,7 +19,9 @@ async function authenticateUser(req): Promise<Usuario> {
 async function authenticateUserSameId(req, id): Promise<Usuario> {
     const usuario = await authenticateUser(req); 
 
-    if (usuario.id !== id) {
+    console.log(usuario.id, id);
+
+    if (usuario.id != id) {
         throw errors.differentUserError(); 
     }
 
