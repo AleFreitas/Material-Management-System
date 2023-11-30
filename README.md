@@ -392,11 +392,10 @@ Todas as queries estão no diretório `src/repositories/` e estão divididas em 
 3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
 
    ```
-   DB_HOST = endereço do banco de dados
-   DB_USER = usuário do banco de dados
-   DB_PASSWORD = senha do banco de dados
-   DB_DATABASE = nome do banco de dados
-   JWT_KEY = chave de autenticação
+   DATABASE_URL = ...
+   NODE_ENV = ...
+   JWT_SECRET = ...
+   PORT = (opcional)
    ```
 4. Execute o comando `npm run dev` para iniciar o servidor
 5. Acesse o servidor em `localhost:5005`
