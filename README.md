@@ -253,21 +253,21 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         ```
       - Retorno Esperado: Confirmação da renovação do empréstimo com nova data de devolução.
 
-   d. Resgatar todos os Empréstimos
+   d. Resgatar todos os Empréstimos ativos
       - Método: GET
       - Endpoint: /loan
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todos os empréstimos cadastrados com seus respectivos detalhes.
    
-   e. Resgatar todos os Empréstimos de livros
+   e. Resgatar todos os Empréstimos ativos de livros
       - Método: GET
       - Endpoint: /loan/book
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todos os empréstimos de livros cadastrados com seus respectivos detalhes.
 
-   f. Resgatar todos os Empréstimos de materiais
+   f. Resgatar todos os Empréstimos ativos de materiais ativos
       - Método: GET
       - Endpoint: /loan/material
       - Nível de Acesso: todos
@@ -367,42 +367,6 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
    
-7. Consultas
-   
-   a. Resgatar todos os livros cadastrados
-      - Método: GET
-      - Endpoint: /book
-      - Nível de Acesso: todos
-      - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todos os livros cadastrados com seus respectivos detalhes.
-
-   b. Resgatar todos os materiais cadastrados
-      - Método: GET
-      - Endpoint: /material
-      - Nível de Acesso: todos
-      - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todos os materiais cadastrados com seus respectivos detalhes.
-
-   c. Resgatar todas as Categorias de livros cadastradas
-      - Método: GET
-      - Endpoint: /category/book
-      - Nível de Acesso: todos
-      - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todas as categorias de livros cadastradas.
-   
-   d. Resgatar todas as Categorias de materiais cadastradas
-      - Método: GET
-      - Endpoint: /category/material
-      - Nível de Acesso: todos
-      - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
-   
-   d. Resgatar todos os Autores cadastrados
-      - Método: GET
-      - Endpoint: /author
-      - Nível de Acesso: todos
-      - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
    
 **OBS 1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
 
