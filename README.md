@@ -22,8 +22,13 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
 
 - Consultas Diversas: Inclui funcionalidades para resgatar informações sobre todos os livros ou materiais cadastrados, assim como a busca de itens específicos por identificadores únicos.
 
+## Queries
+
+Todas as queries estão no diretório `src/repositories/` e estão divididas em `loan-repository.ts`, `material-repository.ts`, `session-repository` e `user-repository.ts`
+
 
 ## ROTAS DA API
+
 
 1. Livros
    
