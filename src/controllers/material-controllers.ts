@@ -15,6 +15,10 @@ async function createBook(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -32,7 +36,11 @@ async function updateBook(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -47,7 +55,11 @@ async function deleteBook(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -61,6 +73,10 @@ async function createMaterial(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -78,7 +94,11 @@ async function updateMaterial(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -93,7 +113,11 @@ async function deleteMaterial(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -107,6 +131,10 @@ async function createAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -124,7 +152,11 @@ async function updateAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -139,7 +171,11 @@ async function deleteAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -153,6 +189,10 @@ async function insertBookAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -167,7 +207,11 @@ async function deleteBookAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
@@ -187,6 +231,10 @@ async function createCategory(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -211,6 +259,10 @@ async function getBookByIsbn(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(book)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -224,6 +276,10 @@ async function getBooksByAuthor(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(books)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -236,6 +292,10 @@ async function getAllMaterials(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(materials)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -249,6 +309,10 @@ async function getMaterialById(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(book)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -263,6 +327,10 @@ async function getBooksByCategory(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(books)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -276,6 +344,10 @@ async function getMaterialsByCategory(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(materials)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -288,6 +360,10 @@ async function getAllAuthors(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(authors)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -300,6 +376,10 @@ async function getAllBookCategories(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(categories)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -312,6 +392,10 @@ async function getAllMaterialCategories(req: Request, res: Response, next) {
         res.status(httpStatus.OK).send(categories)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }

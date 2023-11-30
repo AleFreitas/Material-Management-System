@@ -97,6 +97,13 @@ function pendingFineError(){
     }
 }
 
+function differentUserError(){
+    return {
+        name: "DifferentUserError",
+        message: "You are trying to access a different user's data"
+    }
+}
+
 export default {
     conflictError,
     pendingFineError,
@@ -112,4 +119,5 @@ export default {
     invalidTokenError,
     insuficientAcessLevelError,
     loanInProgressError,
+    differentUserError
 };
