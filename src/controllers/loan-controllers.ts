@@ -49,7 +49,7 @@ async function renewLoan(req: Request, res: Response, next) {
 async function listLoans(req: Request, res: Response, next) {
     try {
         // List all ITEMS that are currently loaned
-        const usuario = await authUtils.authenticateUser(req)
+        await authUtils.authenticateUser(req)
         const loans = await loanServices.listLoans()
         res.status(httpStatus.OK).json(loans)
     } catch (err) {
@@ -61,7 +61,7 @@ async function listLoans(req: Request, res: Response, next) {
 async function listBookLoans(req: Request, res: Response, next) {
     try {
         
-        const usuario = await authUtils.authenticateUser(req)
+        await authUtils.authenticateUser(req)
         const loans = await loanServices.listBookLoans()
         res.status(httpStatus.OK).json(loans)
     } catch (err) {
@@ -72,7 +72,7 @@ async function listBookLoans(req: Request, res: Response, next) {
 
 async function listMaterialLoans(req: Request, res: Response, next) {
     try {
-        const usuario = await authUtils.authenticateUser(req)
+        await authUtils.authenticateUser(req)
         const loans = await loanServices.listMaterialLoans()
         res.status(httpStatus.OK).json(loans)
     } catch (err) {

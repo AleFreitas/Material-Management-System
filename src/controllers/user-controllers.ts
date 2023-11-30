@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import httpStatus from 'http-status';
 import userServices from "../services/user-services.js";
 import { PayloadLoginUsuario, PayloadRegistroUsuario } from "../types/user-types.js";
+import authUtils from "../utils/auth-utils.js";
 
 async function createUser(req: Request, res: Response, next) {
     try {
@@ -38,6 +39,7 @@ async function getUserInfo(req: Request, res: Response, next) {
 
 async function getUserLoans(req: Request, res: Response, next) {
     try {
+        await authUtils.authenticateUser(req)
         const { id } = req.params
         const user = await userServices.getUserLoans(id)
         res.status(httpStatus.OK).send(user)
@@ -49,6 +51,7 @@ async function getUserLoans(req: Request, res: Response, next) {
 
 async function getUserBooks(req: Request, res: Response, next) {
     try {
+        await authUtils.authenticateUser(req)
         const { id } = req.params
         const user = await userServices.getUserBooks(id)
         res.status(httpStatus.OK).send(user)
@@ -60,6 +63,7 @@ async function getUserBooks(req: Request, res: Response, next) {
 
 async function getUserMaterials(req: Request, res: Response, next) {
     try {
+        await authUtils.authenticateUser(req)
         const { id } = req.params
         const user = await userServices.getUserMaterials(id)
         res.status(httpStatus.OK).send(user)
