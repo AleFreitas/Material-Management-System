@@ -1,6 +1,5 @@
-import pool from "../config/database.js"
 import { QueryResult } from "pg";
-import { Livro, PayloadRegistroMaterial } from "../types/material-types.js";
+import pool from "../config/database.js";
 
 async function insertLoan(userId: any, loan): Promise<QueryResult> {
     return pool.query(`

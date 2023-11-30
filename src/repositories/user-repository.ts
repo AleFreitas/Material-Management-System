@@ -1,5 +1,5 @@
-import pool from "../config/database.js";
 import { QueryResult } from "pg";
+import pool from "../config/database.js";
 import { PayloadRegistroUsuario, Usuario } from "../types/user-types.js";
 
 async function findUserByEmail(email: string): Promise<QueryResult<Usuario>> {

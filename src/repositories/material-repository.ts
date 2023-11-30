@@ -1,6 +1,6 @@
-import pool from "../config/database.js"
 import { QueryResult } from "pg";
-import { Author, Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
+import pool from "../config/database.js";
+import { Livro, PayloadRegisterAuthor, PayloadRegistroMaterial } from "../types/material-types.js";
 
 async function findMaterialById(id: number): Promise<QueryResult> {
     return pool.query(`
