@@ -1,0 +1,607 @@
+{
+	"info": {
+		"_postman_id": "5e217d22-01f2-43c7-9cd7-1c7fbca26e7d",
+		"name": "material-management-system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29253677"
+	},
+	"item": [
+		{
+			"name": "sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Teste\",\n    \"sobrenome\": \"Testinho\",\n    \"funcao\": \"tester\",\n    \"email\": \"email1211@gmail.com\",\n    \"senha\": \"12345\",\n    \"url_imagem\": \"https://teste.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/sign-up",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sign in",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"email\": \"string email\",\n    \"senha\": \"string\"\n }\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"sign-in"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create book",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImlhdCI6MTcwMTMwMjAwOH0.yXdx9oNhesEC3p6WN9hdK2IWx5GFDAFgDrIvpD_WtlM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn\": \"123456791\",\n    \"descricao\": \"um livro feito pra testar a funcionalidade de criar livros\",\n    \"data_aquisicao\": \"12/12/2003\",\n    \"conservacao\": \"perfeit\",\n    \"localizacao\": \"prateleira 5\",\n    \"quantidade\": 1,\n    \"titulo\": \"livro de teste\",\n    \"url_capa\": \"http://umaurldeteste\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update book",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isbn\": \"12345679122\",\n    \"descricao\": \"um livro feito pra testar a funcionalidade de criar livros (update realizado bem aqui)\",\n    \"data_aquisicao\": \"12/12/2003\",\n    \"conservacao\": \"otimo\",\n    \"localizacao\": \"prateleira 8\",\n    \"quantidade\": 1,\n    \"titulo\": \"livro de teste\",\n    \"url_capa\": \"http://umaurldeteste\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/book/12345679122",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book",
+						"12345679122"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete book",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/book/12345679122",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book",
+						"12345679122"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create material",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"desc\": \"descrição exemplo para um material didático\",\n    \"data_Aquisicao\": \"12/12/2003\",\n    \"conservacao\": \"bom\",\n    \"localizacao\": \"Estante 14\",\n    \"quantidade\": 2,\n    \"serial\": \"serial1\",\n    \"url_imagem\": \"https://urldeteste\",\n    \"id_categoria_material\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update material",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"desc\": \"descrição exemplo para um material didático (update realizado aqui)\",\n    \"data_Aquisicao\": \"12/12/2003\",\n    \"conservacao\": \"bom\",\n    \"localizacao\": \"Estante 19\",\n    \"quantidade\": 2,\n    \"serial\": \"serial1\",\n    \"url_imagem\": \"https://urldeteste\",\n    \"id_categoria_material\": 2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5005/material/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete material",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImlhdCI6MTcwMDQyNjIyMX0.Sj6nYPVawwS5-tO4u5utw7V4_1ib5Xhf4TTDC_FrwMU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5005/material/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create loan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/loan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all materials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get book by isbn",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/book/9780123456789",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book",
+						"9780123456789"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get material by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/material/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all authors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/author",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"author"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get books by author",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/book/author/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book",
+						"author",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all material categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/category/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"category",
+						"material"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all book categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/category/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"category",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get materials by category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/material/category/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"material",
+						"category",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get books by category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/book/category/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"book",
+						"category",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user loans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/user/1/loan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"user",
+						"1",
+						"loan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user books",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/user/1/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"user",
+						"1",
+						"material"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get user materials",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/user/1/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"user",
+						"1",
+						"material"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all loans",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsImlhdCI6MTcwMTMwNDQzMn0.sGImrLhGpkA6JzGk92atcES5uiSF7sfqrhY84bQQq2M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/loan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all book loans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/loan/book",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"loan",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all material loans",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5005/loan/material",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5005",
+					"path": [
+						"loan",
+						"material"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

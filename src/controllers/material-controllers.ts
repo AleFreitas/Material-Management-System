@@ -8,14 +8,17 @@ import authUtils from "../utils/auth-utils.js";
 async function createBook(req: Request, res: Response, next) {
     try {
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const book: Livro = req.body
         await materialServices.registerBook(book)
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -23,8 +26,7 @@ async function createBook(req: Request, res: Response, next) {
 async function updateBook(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
         
         const { isbn } = req.params
         const newBookData = req.body
@@ -34,15 +36,18 @@ async function updateBook(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function deleteBook(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const { isbn } = req.params
         if(!isbn) throw errors.notFoundError()
@@ -50,21 +55,28 @@ async function deleteBook(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function createMaterial(req: Request, res: Response, next) {
     try {
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const material: PayloadRegistroMaterial = req.body
         await materialServices.registerMaterial(material)
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -72,8 +84,7 @@ async function createMaterial(req: Request, res: Response, next) {
 async function updateMaterial(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
         
         const { id } = req.params
         const newMaterialData = req.body
@@ -83,15 +94,18 @@ async function updateMaterial(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function deleteMaterial(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const { id } = req.params
         if(!id) throw errors.notFoundError()
@@ -99,21 +113,28 @@ async function deleteMaterial(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function createAuthor(req: Request, res: Response, next) {
     try {
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const author: PayloadRegisterAuthor = req.body
         await materialServices.registerAuthor(author)
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -121,8 +142,7 @@ async function createAuthor(req: Request, res: Response, next) {
 async function updateAuthor(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
         
         const { id } = req.params
         const newAuthorData = req.body
@@ -132,15 +152,18 @@ async function updateAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function deleteAuthor(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const { id } = req.params
         if(!id) throw errors.notFoundError()
@@ -148,21 +171,28 @@ async function deleteAuthor(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function insertBookAuthor(req: Request, res: Response, next) {
     try {
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const body: PayloadRegisterBookAuthor = req.body
         await materialServices.registerBookAuthor(body)
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -170,23 +200,25 @@ async function insertBookAuthor(req: Request, res: Response, next) {
 async function deleteBookAuthor(req: Request, res: Response, next) {
     try{
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const { id, isbn } = req.params
         await materialServices.deleteBookAuthor(id, isbn)
         res.sendStatus(httpStatus.OK)
     } catch(err) {
         console.log(err)
-        return next(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
     }
 }
 
 async function createCategory(req: Request, res: Response, next) {
     try {
         //auth
-        const usuario = await authUtils.authenticateUser(req)
-        if(!authUtils.isUserAdmin(usuario)) throw errors.insuficientAcessLevelError()
+        await authUtils.authenticateUser(req)
 
         const body: PayloadRegisterCategory = req.body
         if(body.tipo_de_categoria === "livro"){
@@ -199,53 +231,179 @@ async function createCategory(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
 
-async function getAllBooks(res: Response, next) {
+async function getAllBooks(req: Request, res: Response, next) {
     try {
+        //auth
+        await authUtils.authenticateUser(req)
         const books = await materialServices.getAllBooks()
         res.status(httpStatus.OK).send(books)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
 
 async function getBookByIsbn(req: Request, res: Response, next) {
     try {
+        //auth
+        await authUtils.authenticateUser(req)
         const { isbn } = req.params
         const book = await materialServices.getBookByIsbn(isbn)
         res.status(httpStatus.OK).send(book)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
 
-async function getAllMaterials(res: Response, next) {
+async function getBooksByAuthor(req: Request, res: Response, next) {
     try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const { authorId } = req.params
+        const books = await materialServices.getBooksByAuthor(authorId)
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function getAllMaterials(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
         const materials = await materialServices.getAllMaterials()
         res.status(httpStatus.OK).send(materials)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
 
 async function getMaterialById(req: Request, res: Response, next) {
     try {
+        //auth
+        await authUtils.authenticateUser(req)
         const { id } = req.params
         const book = await materialServices.getMaterialById(id)
         res.status(httpStatus.OK).send(book)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
 
 
+async function getBooksByCategory(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const { categoryId } = req.params
+        const books = await materialServices.getBooksByCategory(categoryId)
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function getMaterialsByCategory(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const { categoryId } = req.params
+        const materials = await materialServices.getMaterialsByCategory(categoryId)
+        res.status(httpStatus.OK).send(materials)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function getAllAuthors(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const authors = await materialServices.getAllAuthors()
+        res.status(httpStatus.OK).send(authors)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function getAllBookCategories(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const categories = await materialServices.getAllBookCategories()
+        res.status(httpStatus.OK).send(categories)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function getAllMaterialCategories(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const categories = await materialServices.getAllMaterialCategories()
+        res.status(httpStatus.OK).send(categories)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
 
 export default {
     createAuthor,
@@ -263,5 +421,11 @@ export default {
     insertBookAuthor,
     updateBook,
     updateMaterial,
-    updateAuthor
+    updateAuthor,
+    getBooksByAuthor,
+    getBooksByCategory,
+    getMaterialsByCategory,
+    getAllAuthors,
+    getAllBookCategories,
+    getAllMaterialCategories
 }

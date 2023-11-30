@@ -16,6 +16,19 @@ async function authenticateUser(req): Promise<Usuario> {
     return usuario
 }
 
+async function authenticateUserSameId(req, id): Promise<Usuario> {
+    const usuario = await authenticateUser(req); 
+
+    console.log(usuario.id, id);
+
+    if (usuario.id != id) {
+        throw errors.differentUserError(); 
+    }
+
+    return usuario; 
+}
+
+
 function isUserAdmin(user: Usuario){
     const funcao = user.funcao.toLowerCase()
     if(funcao === "admin" || funcao === "administrador" || funcao === "chefe" || funcao === "chefe de laboratorio") return true
@@ -25,4 +38,5 @@ function isUserAdmin(user: Usuario){
 export default {
     authenticateUser,
     isUserAdmin,
+    authenticateUserSameId
 }

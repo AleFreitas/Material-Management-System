@@ -1,7 +1,9 @@
 # Sistema de Gerenciamento de Biblioteca - API
+
 Este projeto, parte da disciplina de Banco de Dados da Universidade de Brasília (UnB), consiste em uma API para gerenciamento de bibliotecas focada em simplificar operações de cadastro, empréstimo e gestão de livros e materiais.
 
 ## Funcionalidades
+
 A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essenciais, incluindo:
 
 - Gerenciamento de Livros: Permite criar, atualizar, excluir e consultar livros no acervo da biblioteca.
@@ -20,8 +22,13 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
 
 - Consultas Diversas: Inclui funcionalidades para resgatar informações sobre todos os livros ou materiais cadastrados, assim como a busca de itens específicos por identificadores únicos.
 
+## Queries
+
+Todas as queries estão no diretório `src/repositories/` e estão divididas em `loan-repository.ts`, `material-repository.ts`, `session-repository` e `user-repository.ts`
+
 
 ## ROTAS DA API
+
 
 1. Livros
    
@@ -80,6 +87,18 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: todos
       - Retorno Esperado: Detalhes do livro correspondente ao ISBN fornecido.
 
+   f. Resgatar Livros por Autor
+      - Método: GET
+      - Endpoint: /book/author/:authorId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os livros escritos pelo autor.
+
+   g. Resgatar Livros por Categoria
+      - Método: GET
+      - Endpoint: /book/category/:categoryId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os livros de certa categoria.
+
 2. Materiais
    
    a. Criar Material
@@ -120,6 +139,7 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         }
         ```
       - Retorno Esperado: Confirmação de atualização com detalhes do material atualizado.
+
    c. Excluir Material
       - Método: DELETE
       - Endpoint: /material/:id
@@ -137,8 +157,16 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Endpoint: /material/:id
       - Nível de Acesso: todos
       - Retorno Esperado: Detalhes do material correspondente ao ID fornecido.
+        
+   g. Resgatar Materiais por Categoria
+      - Método: GET
+      - Endpoint: /material/category/:categoryId
+      - Nível de Acesso: todos
+      - Retorno Esperado: Lista de todos os materiais de certa categoria.
+
 
 3. Usuários
+
    a. Criar Usuário
       - Método: POST
       - Endpoint: /sign-up
@@ -173,6 +201,34 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
            "token": "string (token de autenticação)"
         }
         ```
+   
+   c. Resgatar informações de Usuário
+      - Método: GET
+      - Endpoint: /user/:id
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Detalhes do usuário correspondente ao ID fornecido.
+   
+   d. Resgatar Empréstimos do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/loan
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos do usuário correspondente ao ID fornecido.
+   
+   e. Resgatar Livros do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/book
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os livros emprestados pelo usuário correspondente ao ID fornecido.
+   
+   f. Resgatar Materiais do Usuário
+      - Método: GET
+      - Endpoint: /user/:id/material
+      - Nível de Acesso: usuário comum
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os materiais emprestados pelo usuário correspondente ao ID fornecido.
         
 4. Empréstimos
    
@@ -201,6 +257,27 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         }
         ```
       - Retorno Esperado: Confirmação da renovação do empréstimo com nova data de devolução.
+
+   d. Resgatar todos os Empréstimos ativos
+      - Método: GET
+      - Endpoint: /loan
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos cadastrados com seus respectivos detalhes.
+   
+   e. Resgatar todos os Empréstimos ativos de livros
+      - Método: GET
+      - Endpoint: /loan/book
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos de livros cadastrados com seus respectivos detalhes.
+
+   f. Resgatar todos os Empréstimos ativos de materiais ativos
+      - Método: GET
+      - Endpoint: /loan/material
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os empréstimos de materiais cadastrados com seus respectivos detalhes.
 
 5. Autores
    
@@ -238,6 +315,13 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
       - Nível de Acesso: chefe de laboratório ou administrador
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Confirmação da exclusão do autor.
+   
+   d. Resgatar todos os Autores
+      - Método: GET
+      - Endpoint: /author
+      - Nível de Acesso: todos
+      - Corpo da Requisição: VAZIO
+      - Retorno Esperado: Lista de todos os autores cadastrados com seus respectivos detalhes.
         
 6. Relacionamentos e Categorias
    
@@ -273,20 +357,50 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
         }
         ```
       - Retorno Esperado: Confirmação de criação com detalhes da categoria adicionada.
-
-7. Consultas
    
-   a. Resgatar todos os livros cadastrados
+   d. Resgatar todas as Categorias de livros
       - Método: GET
-      - Endpoint: /book
+      - Endpoint: /category/book
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todos os livros cadastrados com seus respectivos detalhes.
-
-   b. Resgatar todos os materiais cadastrados
+      - Retorno Esperado: Lista de todas as categorias de livros cadastradas.
+   
+   e. Resgatar todas as Categorias de materiais
       - Método: GET
-      - Endpoint: /material
+      - Endpoint: /category/material
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
-      - Retorno Esperado: Lista de todos os materiais cadastrados com seus respectivos detalhes.
+      - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
+   
+   
+**OBS 1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
 
+**OBS 2:** Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
+
+
+## Tecnologias Utilizadas
+
+- Typescript
+- Node.js
+- Express
+- PostgreSQL
+
+## Como Executar
+
+1. Clone o repositório
+2. Instale as dependências com `npm install`
+3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
+
+   ```
+   DB_HOST = endereço do banco de dados
+   DB_USER = usuário do banco de dados
+   DB_PASSWORD = senha do banco de dados
+   DB_DATABASE = nome do banco de dados
+   JWT_KEY = chave de autenticação
+   ```
+4. Execute o comando `npm run dev` para iniciar o servidor
+5. Acesse o servidor em `localhost:5005`
+
+## Observações
+
+Para acessar versões já implantadas da API ou para tirar qualquer dúvida entre em contato com os desenvolvedores.

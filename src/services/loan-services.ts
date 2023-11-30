@@ -59,8 +59,27 @@ async function renewLoan(itemId: any, usuario: Usuario, newDate: any) {
     await loanRepository.updateReturnDate(itemId, usuario.id, newDate)
 }
 
+async function listLoans() {
+    const loans = await loanRepository.listLoans()
+    return loans.rows
+}
+
+async function listBookLoans() {
+    const loans = await loanRepository.listBookLoans()
+    return loans.rows
+}
+
+async function listMaterialLoans() {
+    const loans = await loanRepository.listMaterialLoans()
+    return loans.rows
+}
+
+
 export default {
     registerLoan,
     completeLoan,
     renewLoan,
+    listLoans,
+    listBookLoans,
+    listMaterialLoans
 }

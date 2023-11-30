@@ -13,6 +13,10 @@ async function createLoan(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.CREATED)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -27,6 +31,10 @@ async function completeLoan(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -42,6 +50,57 @@ async function renewLoan(req: Request, res: Response, next) {
         res.sendStatus(httpStatus.OK)
     } catch (err) {
         console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function listLoans(req: Request, res: Response, next) {
+    try {
+        // List all ITEMS that are currently loaned
+        await authUtils.authenticateUser(req)
+        const loans = await loanServices.listLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function listBookLoans(req: Request, res: Response, next) {
+    try {
+        
+        await authUtils.authenticateUser(req)
+        const loans = await loanServices.listBookLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
+async function listMaterialLoans(req: Request, res: Response, next) {
+    try {
+        await authUtils.authenticateUser(req)
+        const loans = await loanServices.listMaterialLoans()
+        res.status(httpStatus.OK).json(loans)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
         return next(err);
     }
 }
@@ -50,4 +109,7 @@ export default {
     createLoan,
     completeLoan,
     renewLoan,
+    listLoans,
+    listBookLoans,
+    listMaterialLoans
 }
