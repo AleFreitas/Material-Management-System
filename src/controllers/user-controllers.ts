@@ -17,9 +17,10 @@ async function createUser(req: Request, res: Response, next) {
 
 async function loginUser(req: Request, res: Response, next) {
     try {
+        const { id } = req.params
         const user: PayloadLoginUsuario = req.body
         const token = await userServices.loginUser(user)
-        res.status(httpStatus.OK).send({token})
+        res.status(httpStatus.OK).send({token, id})
     } catch (err) {
         console.log(err)
         return next(err);
