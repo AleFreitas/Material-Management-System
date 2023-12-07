@@ -17,10 +17,9 @@ async function createUser(req: Request, res: Response, next) {
 
 async function loginUser(req: Request, res: Response, next) {
     try {
-        const { id } = req.params
         const user: PayloadLoginUsuario = req.body
         const token = await userServices.loginUser(user)
-        res.status(httpStatus.OK).send({token, id})
+        res.status(httpStatus.OK).send({token})
     } catch (err) {
         console.log(err)
         return next(err);
@@ -91,11 +90,27 @@ async function getUserMaterials(req: Request, res: Response, next) {
     }
 }
 
+async function getUserIdByEmail(req: Request, res: Response, next) {
+    try {
+        const { email } = req.params
+        const user = await userServices.getUserIdByEmail(email)
+        res.status(httpStatus.OK).send(user)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
 export default {
     createUser,
     loginUser,
     getUserInfo,
     getUserLoans,
     getUserBooks,
-    getUserMaterials
+    getUserMaterials,
+    getUserIdByEmail
 }

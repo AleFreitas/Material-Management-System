@@ -13,5 +13,6 @@ authRouter.get("/user/:id", userControllers.getUserInfo)
 authRouter.get("/user/:id/loan", userControllers.getUserLoans)
 authRouter.get("/user/:id/book", userControllers.getUserBooks)
 authRouter.get("/user/:id/material", userControllers.getUserMaterials)
+authRouter.get("/user/:email", userControllers.getUserIdByEmail)
 
 export default authRouter;

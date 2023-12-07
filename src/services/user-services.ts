@@ -50,11 +50,17 @@ async function getUserMaterials(userId: string) {
     return materials.rows
 }
 
+async function getUserIdByEmail(email: string) {
+    const user = await userRepository.findUserByEmail(email)
+    return user.rows[0].id
+}
+
 export default {
     registerUser,
     loginUser,
     getUserInfo,
     getUserLoans,
     getUserBooks,
-    getUserMaterials    
+    getUserMaterials,
+    getUserIdByEmail
 }
