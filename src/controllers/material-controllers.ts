@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import httpStatus from 'http-status';
 import errors from "../errors/index.js";
 import materialServices from "../services/material-services.js";
-import { Livro, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
+import { Livro, PayloadBookCategory, PayloadRegisterAuthor, PayloadRegisterBookAuthor, PayloadRegisterCategory, PayloadRegistroMaterial } from "../types/material-types.js";
 import authUtils from "../utils/auth-utils.js";
 
 async function createBook(req: Request, res: Response, next) {
@@ -239,6 +239,24 @@ async function createCategory(req: Request, res: Response, next) {
     }
 }
 
+async function addCategoryToBook(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+
+        const body: PayloadBookCategory = req.body
+        await materialServices.linkBookToCategory(body.isbn, body.id_categoria)
+        res.sendStatus(httpStatus.CREATED)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
 async function getAllBooks(req: Request, res: Response, next) {
     try {
         //auth
@@ -410,6 +428,7 @@ export default {
     createBook,
     createCategory,
     createMaterial,
+    addCategoryToBook,
     deleteAuthor,
     deleteBook,
     deleteBookAuthor,
