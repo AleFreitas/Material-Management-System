@@ -35,5 +35,6 @@ materialRouter.post("/category/book", validateSchema(linkBookToCategorySchema), 
 materialRouter.get("/category/book", materialControllers.getAllBookCategories)
 materialRouter.get("/category/book/:isbn", materialControllers.getBookCategories)
 materialRouter.get("/category/material", materialControllers.getAllMaterialCategories)
+materialRouter.get("/category/material/:id", materialControllers.getMaterialCategories)
 
 export default materialRouter;

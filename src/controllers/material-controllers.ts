@@ -457,6 +457,23 @@ async function getBookCategories(req: Request, res: Response, next) {
     }
 }
 
+async function getMaterialCategories(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const { id } = req.params
+        const categories = await materialServices.getMaterialCategories(id)
+        res.status(httpStatus.OK).send(categories)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+        
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
 export default {
     createAuthor,
     createBook,
@@ -482,5 +499,6 @@ export default {
     getAllBookCategories,
     getAllMaterialCategories,
     getAuthorsByBook,
-    getBookCategories
+    getBookCategories,
+    getMaterialCategories
 }
