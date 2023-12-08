@@ -308,6 +308,36 @@ async function findAllMaterialCategories(): Promise<QueryResult> {
     `)
 }
 
+async function findAuthorsByBook(isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM autor
+        WHERE id IN (
+            SELECT id_autor FROM autor_livro
+            WHERE isbn = $1
+        )
+    `, [isbn])
+}
+
+async function findBookCategories(isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM categoria_livro
+        WHERE id IN (
+            SELECT id_categoria_livro FROM relacao_categoria_livro
+            WHERE isbn = $1
+        )
+    `, [isbn])
+}
+
+async function findMaterialCategories(id: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM categoria_material
+        WHERE id IN (
+            SELECT id_categoria_material FROM material_didatico
+            WHERE id = $1
+        )
+    `, [id])
+}
+
 export default {
     insertBook,
     insertBookItem,
@@ -350,5 +380,8 @@ export default {
     findUserMaterials,
     findAllAuthors,
     findAllBookCategories,
-    findAllMaterialCategories
+    findAllMaterialCategories,
+    findAuthorsByBook,
+    findBookCategories,
+    findMaterialCategories
 }

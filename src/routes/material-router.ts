@@ -25,6 +25,7 @@ materialRouter.post("/author", validateSchema(registerAuthorSchema), materialCon
 materialRouter.put("/author/:id", materialControllers.updateAuthor)
 materialRouter.delete("/author/:id", materialControllers.deleteAuthor)
 materialRouter.get("/author", materialControllers.getAllAuthors)
+materialRouter.get("/author/book/:isbn", materialControllers.getAuthorsByBook)
 
 materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), materialControllers.insertBookAuthor)
 materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
@@ -32,6 +33,8 @@ materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAu
 materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
 materialRouter.post("/category/book", validateSchema(linkBookToCategorySchema), materialControllers.addCategoryToBook)
 materialRouter.get("/category/book", materialControllers.getAllBookCategories)
+materialRouter.get("/category/book/:isbn", materialControllers.getBookCategories)
 materialRouter.get("/category/material", materialControllers.getAllMaterialCategories)
+materialRouter.get("/category/material/:id", materialControllers.getMaterialCategories)
 
 export default materialRouter;

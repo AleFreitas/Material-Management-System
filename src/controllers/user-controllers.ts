@@ -90,11 +90,27 @@ async function getUserMaterials(req: Request, res: Response, next) {
     }
 }
 
+async function getUserIdByEmail(req: Request, res: Response, next) {
+    try {
+        const { email } = req.params
+        const id = await userServices.getUserIdByEmail(email)
+        res.status(httpStatus.OK).send({id: id})
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error occurred";
+
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
 export default {
     createUser,
     loginUser,
     getUserInfo,
     getUserLoans,
     getUserBooks,
-    getUserMaterials
+    getUserMaterials,
+    getUserIdByEmail
 }
