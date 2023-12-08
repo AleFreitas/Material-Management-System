@@ -154,6 +154,16 @@ async function registerBookCategory(name: string) {
     await materialRepository.insertBookCategory(name)
 }
 
+async function linkBookToCategory(isbn: string, category_id: number) {
+    const categoryExists = await materialRepository.findBookCategoryById(category_id)
+    if(categoryExists.rowCount === 0) throw errors.notFoundError()
+    const bookExists = await materialRepository.findBookByISBN(isbn)
+    if(bookExists.rowCount === 0) throw errors.notFoundError()
+    const bookCategoryRelationExists = await materialRepository.findBookCategoryRelation(isbn, category_id)
+    if(bookCategoryRelationExists.rowCount !== 0) throw errors.conflictError("this book already has this category.")
+    await materialRepository.linkBookToCategory(isbn, category_id)
+}
+
 async function deleteBookCategory(name: string) {
     const categoryExists = await materialRepository.findBookCategoryByName(name)
     if(categoryExists.rowCount === 0) throw errors.conflictError("this category name is in use")
@@ -239,6 +249,7 @@ export default {
     registerBookAuthor,
     registerMaterialCategory,
     registerBookCategory,
+    linkBookToCategory,
     updateBook,
     updateMaterial,
     updateAuthor,

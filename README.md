@@ -396,14 +396,26 @@ A arquitetura implementada neste projeto foi a arquitetura de tres camadas adapt
         ```
       - Retorno Esperado: Confirmação de criação com detalhes da categoria adicionada.
    
-   d. Resgatar todas as Categorias de livros
+   d. Criar Relação Categoria e livro
+      - Método: POST
+      - Endpoint: /category/book
+      - Nível de Acesso: usuário comum logado
+      - Corpo da requisição: 
+         ```json
+         {
+          "id_categoria": "number",
+          "isbn": "string"
+         }
+      ```
+
+   e. Resgatar todas as Categorias de livros
       - Método: GET
       - Endpoint: /category/book
       - Nível de Acesso: todos
       - Corpo da Requisição: VAZIO
       - Retorno Esperado: Lista de todas as categorias de livros cadastradas.
    
-   e. Resgatar todas as Categorias de materiais
+   f. Resgatar todas as Categorias de materiais
       - Método: GET
       - Endpoint: /category/material
       - Nível de Acesso: todos

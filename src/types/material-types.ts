@@ -39,6 +39,11 @@ export type Category = {
     nome: string,
 }
 
+export type PayloadBookCategory = {
+    id_categoria: number,
+    isbn: string
+}
+
 export type PayloadRegisterCategory = Omit<Category, 'id'> & {
     tipo_de_categoria: string,
 };

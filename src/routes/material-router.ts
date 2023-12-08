@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateSchema } from "../middlewares/validateSchema.js";
-import { registerAuthorSchema, registerBookAuthorSchema, registerBookSchema, registerCategorySchema, registerMaterialSchema } from "../schemas/material-schemas.js";
+import { linkBookToCategorySchema, registerAuthorSchema, registerBookAuthorSchema, registerBookSchema, registerCategorySchema, registerMaterialSchema } from "../schemas/material-schemas.js";
 import materialControllers from "../controllers/material-controllers.js";
 
 const materialRouter = Router()
@@ -31,6 +31,7 @@ materialRouter.post("/book-author", validateSchema(registerBookAuthorSchema), ma
 materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAuthor)
 
 materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
+materialRouter.post("/category/book", validateSchema(linkBookToCategorySchema), materialControllers.addCategoryToBook)
 materialRouter.get("/category/book", materialControllers.getAllBookCategories)
 materialRouter.get("/category/material", materialControllers.getAllMaterialCategories)
 
