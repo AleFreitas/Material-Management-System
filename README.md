@@ -22,9 +22,47 @@ A API de Gerenciamento de Biblioteca oferece uma série de funcionalidades essen
 
 - Consultas Diversas: Inclui funcionalidades para resgatar informações sobre todos os livros ou materiais cadastrados, assim como a busca de itens específicos por identificadores únicos.
 
-## Queries
+## Queries SQL
 
 Todas as queries estão no diretório `src/repositories/` e estão divididas em `loan-repository.ts`, `material-repository.ts`, `session-repository` e `user-repository.ts`
+
+## Tecnologias Utilizadas
+- Typescript <a href="#"><code><img height="30" src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg"></code></a>
+- Node.js <a href="#"><code><img height="30" src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original.svg"></code></a>
+- Express <a href="#"><code><img height="30" src="https://github.com/devicons/devicon/blob/master/icons/express/express-original.svg"></code></a>
+- PostgreSQL <a href="#"><code><img height="30" src="https://github.com/devicons/devicon/blob/master/icons/postgresql/postgresql-original.svg"></code></a>
+
+## Como Executar
+
+1. Clone o repositório
+2. Instale as dependências com
+   ```bash
+   npm install
+   ```
+3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
+
+   ```Node
+   DATABASE_URL = ...
+   NODE_ENV = ...
+   JWT_SECRET = ...
+   PORT = (opcional)
+   ```
+4. Caso queira ter o banco de dados localmente temos um script de criação e população de banco no projeto (lembre de adicionar o url do banco local no `.env`)
+5. Fizemos um deploy do banco de dados em uma plataforma gratuita [ElephantSQL](https://www.elephantsql.com/), se quiser utilizar basta adicionar a url no `.env`
+   ```Node
+   DATABASE_URL = postgres://xuhtelmv:UZ-WkdrlM-wYbsO3098pkWDI1yC8e9k6@silly.db.elephantsql.com/xuhtelmv
+   ```
+6. Execute o comando para iniciar o servidor
+   ```bash
+      npm run dev
+   ```
+7. Acesse o servidor em `localhost:5005` (caso tenha adicionado um PORT no .env troque o 5005 pela porta escolhida)
+8. Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
+
+## ARQUITETURA
+A arquitetura implementada neste projeto foi a arquitetura de tres camadas adaptada ao contexto do desafio que era de uma api. Uma camada extra de ORM poderia ser adicionada para desacoplar ainda mais o sistema e isolar as regras de negócio do banco mas devido ao objetivo do trabalho o uso de uma ORM foi descartado e sendo assim a própria camada de negócio (API) implementa o código das queries necessárias
+
+![image](https://github.com/AleFreitas/Material-Management-System/assets/83618808/f18220b4-c82b-4514-9122-a5b35eb7da4c)
 
 
 ## ROTAS DA API
@@ -373,33 +411,11 @@ Todas as queries estão no diretório `src/repositories/` e estão divididas em 
       - Retorno Esperado: Lista de todas as categorias de materiais cadastradas.
    
    
-**OBS 1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição com o nome `auth-token`.
-
-**OBS 2:** Há um arquivo `Postman.json` na raiz do projeto com todas as rotas da API para facilitar o teste. Basta importar o arquivo no Postman e executar as requisições.
-
-
-## Tecnologias Utilizadas
-
-- Typescript
-- Node.js
-- Express
-- PostgreSQL
-
-## Como Executar
-
-1. Clone o repositório
-2. Instale as dependências com `npm install`
-3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
-
-   ```
-   DB_HOST = endereço do banco de dados
-   DB_USER = usuário do banco de dados
-   DB_PASSWORD = senha do banco de dados
-   DB_DATABASE = nome do banco de dados
-   JWT_KEY = chave de autenticação
-   ```
-4. Execute o comando `npm run dev` para iniciar o servidor
-5. Acesse o servidor em `localhost:5005`
+**OBS 1:** Todas as rotas que necessitam de autenticação devem receber um token de autenticação no header da requisição. O header deve seguir esse modelo:
+```
+Authorization: "Bearer token"
+```
+onde token deve ser substituido pelo token apropriado recebido durante o login
 
 ## Observações
 
