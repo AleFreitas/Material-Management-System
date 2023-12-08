@@ -318,6 +318,16 @@ async function findAuthorsByBook(isbn: any): Promise<QueryResult> {
     `, [isbn])
 }
 
+async function findBookCategories(isbn: any): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM categoria_livro
+        WHERE id IN (
+            SELECT id_categoria_livro FROM relacao_categoria_livro
+            WHERE isbn = $1
+        )
+    `, [isbn])
+}
+
 export default {
     insertBook,
     insertBookItem,
@@ -361,5 +371,6 @@ export default {
     findAllAuthors,
     findAllBookCategories,
     findAllMaterialCategories,
-    findAuthorsByBook
+    findAuthorsByBook,
+    findBookCategories
 }

@@ -238,6 +238,11 @@ async function getAuthorsByBook(isbn: string) {
     return authors.rows
 }
 
+async function getBookCategories(isbn: string) {
+    const categories = await materialRepository.findBookCategories(isbn)
+    return categories.rows
+}
+
 export default {
     getAllBooks,
     getAllMaterials,
@@ -265,5 +270,6 @@ export default {
     getAllAuthors,
     getAllBookCategories,
     getAllMaterialCategories,
-    getAuthorsByBook
+    getAuthorsByBook,
+    getBookCategories
 }

@@ -33,6 +33,7 @@ materialRouter.delete("/book-author/:id/:isbn", materialControllers.deleteBookAu
 materialRouter.post("/category", validateSchema(registerCategorySchema), materialControllers.createCategory)
 materialRouter.post("/category/book", validateSchema(linkBookToCategorySchema), materialControllers.addCategoryToBook)
 materialRouter.get("/category/book", materialControllers.getAllBookCategories)
+materialRouter.get("/category/book/:isbn", materialControllers.getBookCategories)
 materialRouter.get("/category/material", materialControllers.getAllMaterialCategories)
 
 export default materialRouter;
