@@ -46,30 +46,30 @@ async function updateReturnDate(itemId: any, userId: any, newDate: any): Promise
 
 async function listLoans(): Promise<QueryResult> {
     return pool.query(`
-        SELECT i.*, e.data_emprestimo, e.data_devolucao
+        SELECT i.*, e.*
         FROM item i
         INNER JOIN emprestimo e ON i.id = e.id_item
-        WHERE e.data_devolucao IS NULL;
+        WHERE e.status = true;
     `)
 }
 
 async function listBookLoans(): Promise<QueryResult> {
     return pool.query(`
-        SELECT l.*
+        SELECT l.*, e.*
         FROM livro l
         INNER JOIN item i ON l.isbn = i.isbn
         INNER JOIN emprestimo e ON i.id = e.id_item
-        WHERE e.data_devolucao IS NULL;
+        WHERE e.status = true;
     `)
 }
 
 async function listMaterialLoans(): Promise<QueryResult> {
     return pool.query(`
-        SELECT m.*
+        SELECT m.*, e.*
         FROM material_didatico m
         INNER JOIN item i ON m.id = i.id_material
         INNER JOIN emprestimo e ON i.id = e.id_item
-        WHERE e.data_devolucao IS NULL;
+        WHERE e.status = true;
     `)
 }
 
