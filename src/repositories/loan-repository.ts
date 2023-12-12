@@ -15,6 +15,21 @@ async function findItemById(itemId: any): Promise<QueryResult> {
     `, [itemId])
 }
 
+async function findItemByIsbn(isbn: string): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM item
+        WHERE isbn = $1
+    `, [isbn])
+}
+
+
+async function findItemByMaterialId(material_id: number): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM item
+        WHERE id_material = $1
+    `, [material_id])
+}
+
 async function findLoansByItemId(itemId: any): Promise<QueryResult> {
     return pool.query(`
         SELECT * FROM emprestimo
@@ -77,6 +92,8 @@ export default {
     insertLoan,
     deleteLoanByItemIdAndUserId,
     findItemById,
+    findItemByIsbn,
+    findItemByMaterialId,
     findLoansByItemId,
     findLoanByItemIdAndUserId,
     updateReturnDate,
