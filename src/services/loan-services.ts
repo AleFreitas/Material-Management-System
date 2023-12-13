@@ -41,6 +41,15 @@ async function registerLoan(itemId: any, usuario: Usuario) {
 }
 
 async function completeLoan(itemId: any, usuario: Usuario) {
+    let item = await loanRepository.findItemByIsbn(itemId);
+    if (item.rowCount === 0) {
+        item = await loanRepository.findItemByMaterialId(itemId);
+        if (item.rowCount === 0) {
+            throw errors.notFoundError();
+        }
+    }
+    itemId = item.rows[0].id;
+
     const userLoanedThisItem = await loanRepository.findLoanByItemIdAndUserId(itemId, usuario.id)
     if(userLoanedThisItem.rowCount === 0) throw errors.notFoundError()
 
@@ -54,6 +63,15 @@ async function completeLoan(itemId: any, usuario: Usuario) {
 }
 
 async function renewLoan(itemId: any, usuario: Usuario, newDate: any) {
+    let item = await loanRepository.findItemByIsbn(itemId);
+    if (item.rowCount === 0) {
+        item = await loanRepository.findItemByMaterialId(itemId);
+        if (item.rowCount === 0) {
+            throw errors.notFoundError();
+        }
+    }
+    itemId = item.rows[0].id;
+    
     const userLoanedThisItem = await loanRepository.findLoanByItemIdAndUserId(itemId, usuario.id)
     if(userLoanedThisItem.rowCount === 0) throw errors.notFoundError()
 
