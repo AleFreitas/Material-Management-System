@@ -61,8 +61,8 @@ async function renewLoan(req: Request, res: Response, next) {
 async function listLoans(req: Request, res: Response, next) {
     try {
         // List all ITEMS that are currently loaned
-        await authUtils.authenticateUser(req)
-        const loans = await loanServices.listLoans()
+        const usuario = await authUtils.authenticateUser(req)
+        const loans = await loanServices.listLoans(usuario.id)
         res.status(httpStatus.OK).json(loans)
     } catch (err) {
         console.log(err)

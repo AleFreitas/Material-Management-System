@@ -68,6 +68,35 @@ async function listLoans(): Promise<QueryResult> {
     `)
 }
 
+async function listUserLoans(userId: number): Promise<QueryResult> {
+    return pool.query(`
+        SELECT i.id as item_id, i.isbn as isbn, e.id as loan_id
+        FROM item i
+        INNER JOIN emprestimo e ON i.id = e.id_item
+        WHERE e.status = true AND id_usuario = $1;
+    `,[userId])
+}
+
+async function listBookInfoByItemId(itemId: string): Promise<QueryResult> {
+    return pool.query(`
+        SELECT l.*
+        FROM livro l
+        INNER JOIN item i ON i.isbn = l.isbn
+        WHERE i.id = $1;
+    `,[itemId]);
+}
+
+
+async function listMaterialInfoByItemId(itemId): Promise<QueryResult> {
+    return pool.query(`
+        SELECT m.*
+        FROM material_didatico m
+        INNER JOIN item i ON i.id_material = m.id
+        WHERE i.id = $1;
+    `,[itemId]);
+}
+    
+
 async function listBookLoans(): Promise<QueryResult> {
     return pool.query(`
         SELECT l.*, e.*
@@ -98,6 +127,9 @@ export default {
     findLoanByItemIdAndUserId,
     updateReturnDate,
     listLoans,
+    listUserLoans,
+    listBookInfoByItemId,
+    listMaterialInfoByItemId,
     listBookLoans,
     listMaterialLoans
 }

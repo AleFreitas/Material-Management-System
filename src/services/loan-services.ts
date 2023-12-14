@@ -84,9 +84,24 @@ async function renewLoan(itemId: any, usuario: Usuario, newDate: any) {
     await loanRepository.updateReturnDate(itemId, usuario.id, newDate)
 }
 
-async function listLoans() {
-    const loans = await loanRepository.listLoans()
-    return loans.rows
+async function listLoans(userId: number) {
+    const loans = await loanRepository.listUserLoans(userId)
+    const loansData: any[] = [];
+
+    for (const i of loans.rows) {
+        if (i.isbn === null) {
+            console.log('material')
+            console.log(i)
+            const loan = await loanRepository.listMaterialInfoByItemId(i.item_id);
+            loansData.push(loan.rows[0]);
+        } else {
+            console.log('book')
+            console.log(i)
+            const loan = await loanRepository.listBookInfoByItemId(i.item_id);
+            loansData.push(loan.rows[0]);
+        }
+    }
+    return loansData
 }
 
 async function listBookLoans() {
