@@ -189,7 +189,7 @@ async function getAllBooks() {
 }
 
 async function getAllMaterials() {
-    const materials = await materialRepository.findAllMaterials()
+    const materials = await materialRepository.findAllMaterialsWithRelations()
     return materials.rows
 }
 
@@ -248,6 +248,11 @@ async function getMaterialCategories(id: string) {
     return categories.rows
 }
 
+async function getAllBooksWithRelations() {
+    const books = await materialRepository.findAllBooksWithRelations()
+    return books.rows
+}
+
 export default {
     getAllBooks,
     getAllMaterials,
@@ -277,5 +282,6 @@ export default {
     getAllMaterialCategories,
     getAuthorsByBook,
     getBookCategories,
-    getMaterialCategories
+    getMaterialCategories,
+    getAllBooksWithRelations
 }
