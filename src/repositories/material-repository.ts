@@ -222,9 +222,10 @@ async function findAllBooks(): Promise<QueryResult> {
     `)
 }
 
-async function findAllMaterials(): Promise<QueryResult> {
+async function findAllMaterialsWithRelations(): Promise<QueryResult> {
     return pool.query(`
         SELECT * FROM material_didatico
+        INNER JOIN categoria_material ON material_didatico.id_categoria_material = categoria_material.id
     `)
 }
 
@@ -337,6 +338,15 @@ async function findMaterialCategories(id: any): Promise<QueryResult> {
         )
     `, [id])
 }
+async function findAllBooksWithRelations(): Promise<QueryResult> {
+    return pool.query(`
+        SELECT * FROM livro
+        INNER JOIN autor_livro ON livro.isbn = autor_livro.isbn
+        INNER JOIN autor ON autor_livro.id_autor = autor.id
+        INNER JOIN relacao_categoria_livro ON livro.isbn = relacao_categoria_livro.isbn
+        INNER JOIN categoria_livro ON relacao_categoria_livro.id_categoria_livro = categoria_livro.id
+    `)
+}
 
 export default {
     insertBook,
@@ -349,7 +359,7 @@ export default {
     linkBookToCategory,
     insertBookCategory,
     findAllBooks,
-    findAllMaterials,
+    findAllMaterialsWithRelations,
     findBookByISBN,
     findMaterialById,
     findAuthorByEmail,
@@ -383,5 +393,6 @@ export default {
     findAllMaterialCategories,
     findAuthorsByBook,
     findBookCategories,
-    findMaterialCategories
+    findMaterialCategories,
+    findAllBooksWithRelations
 }

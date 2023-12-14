@@ -261,7 +261,7 @@ async function getAllBooks(req: Request, res: Response, next) {
     try {
         //auth
         await authUtils.authenticateUser(req)
-        const books = await materialServices.getAllBooks()
+        const books = await materialServices.getAllBooksWithRelations()
         res.status(httpStatus.OK).send(books)
     } catch (err) {
         console.log(err)
@@ -474,6 +474,22 @@ async function getMaterialCategories(req: Request, res: Response, next) {
     }
 }
 
+async function getAllBooksWithRelations(req: Request, res: Response, next) {
+    try {
+        //auth
+        await authUtils.authenticateUser(req)
+        const books = await materialServices.getAllBooksWithRelations()
+        res.status(httpStatus.OK).send(books)
+    } catch (err) {
+        console.log(err)
+        const statusCode = err.statusCode || 500;
+        const message = err.message || "An unexpected error ocurred";
+        
+        res.status(statusCode).send({ error: message });
+        return next(err);
+    }
+}
+
 export default {
     createAuthor,
     createBook,
@@ -500,5 +516,6 @@ export default {
     getAllMaterialCategories,
     getAuthorsByBook,
     getBookCategories,
-    getMaterialCategories
+    getMaterialCategories,
+    getAllBooksWithRelations
 }
