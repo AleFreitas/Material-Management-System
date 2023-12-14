@@ -96,8 +96,8 @@ async function getUserMaterials(req: Request, res: Response, next) {
 async function getUserIdByEmail(req: Request, res: Response, next) {
   try {
     const { email } = req.params;
-    const id = await userServices.getUserIdByEmail(email);
-    res.status(httpStatus.OK).send({ id: id });
+    const user = await userServices.getUserIdByEmail(email);
+    res.status(httpStatus.OK).send(user);
   } catch (err) {
     console.log(err);
     const statusCode = err.statusCode || 500;
