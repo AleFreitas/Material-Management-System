@@ -42,10 +42,10 @@ Todas as queries estão no diretório `src/repositories/` e estão divididas em 
 3. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis de ambiente:
 
    ```Node
-   DATABASE_URL = ...
-   NODE_ENV = ...
-   JWT_SECRET = ...
-   PORT = (opcional)
+   DATABASE_URL = postgres://xuhtelmv:UZ-WkdrlM-wYbsO3098pkWDI1yC8e9k6@silly.db.elephantsql.com/xuhtelmv
+   PORT = 5005
+   NODE_ENV = production
+   JWT_SECRET = [Escolha uma chave aleatória. Exemplo: 1234@abcd]
    ```
 4. Caso queira ter o banco de dados localmente temos um script de criação e população de banco no projeto (lembre de adicionar o url do banco local no `.env`)
 5. Fizemos um deploy do banco de dados em uma plataforma gratuita [ElephantSQL](https://www.elephantsql.com/), se quiser utilizar basta adicionar a url no `.env`
